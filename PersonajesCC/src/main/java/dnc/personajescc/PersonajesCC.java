@@ -38,7 +38,7 @@ public class PersonajesCC {
     /**
      * Metodo interno que gestiona la comunicacion con el servidor
      *
-     * @param p La peticion generada por los metodos de la clase
+     * @param peticion La peticion generada por los metodos de la clase
      *
      * @return La respuesta del servidor
      *
@@ -46,7 +46,7 @@ public class PersonajesCC {
      *                             servidor o ser generada por el cliente de
      *                             comunicaciones
      */
-    private Object conectar(Peticion p) throws ExcepcionPersonajes {
+    private Object conectar(Peticion peticion) throws ExcepcionPersonajes {
         Object res = null;
         try {
             //Conectar al servidor
@@ -55,7 +55,7 @@ public class PersonajesCC {
 
             //Generar el output stream y enviar la peticion al servidor
             ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
-            oos.writeObject(p);
+            oos.writeObject(peticion);
 
             //Generar el input stream y leer la respuesta del servidor
             ObjectInputStream ois = new ObjectInputStream(con.getInputStream());
@@ -107,12 +107,48 @@ public class PersonajesCC {
      *         1 = correcto, 0 = no se inserto
      *
      * @throws ExcepcionPersonajes Lanza una excepcion causada por el metodo
-     *                             conectar
+     *                             conectar, que proviene desde el servidor o es
+     *                             generada por las comunicaciones
      * @see #conectar(pojospersonajes.Peticion)
      */
     public Integer insertarUsuario(Usuario u) throws ExcepcionPersonajes {
-        Peticion p = new Peticion(Operaciones.INSERTAR_USUARIO, null, u);
-        return (Integer) conectar(p);
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_USUARIO, null, u);
+        return (Integer) conectar(peticion);
+    }
+
+    /**
+     * Metodo para eliminar un usuario a traves de las comunicaciones
+     *
+     * @param id El id del cliente a eliminar
+     *
+     * @return Un entero que determina si se realizo correctamente la insercion,
+     *         1 = correcto, 0 = no se inserto
+     *
+     * @throws ExcepcionPersonajes Lanza una excepcion causada por el metodo
+     *                             conectar, que proviene desde el servidor o es
+     *                             generada por las comunicaciones
+     */
+    public Integer eliminarUsuario(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_USUARIO, id, null);
+        return (Integer) conectar(peticion);
+    }
+
+    /**
+     * Metodo para modificar un usuario en el servidor
+     *
+     * @param id La id del usuario a modificar
+     * @param u  Los nuevos datos con los que remplazar los antiguos
+     *
+     * @return Un entero que determina si se realizo correctamente la insercion,
+     *         1 = correcto, 0 = no se inserto
+     *
+     * @throws ExcepcionPersonajes Lanza una excepcion causada por el metodo
+     *                             conectar, que proviene desde el servidor o es
+     *                             generada por las comunicaciones
+     */
+    public Integer modificarUsuario(Integer id, Usuario u) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_USUARIO, id, u);
+        return (Integer) conectar(peticion);
     }
 
     /**
@@ -121,12 +157,13 @@ public class PersonajesCC {
      * @return Un ArrayList con todos los usuarios de la base de datos
      *
      * @throws ExcepcionPersonajes Lanza una excepcion causada por el metodo
-     *                             conectar
+     *                             conectar, que proviene desde el servidor o es
+     *                             generada por las comunicaciones
      * @see #conectar(pojospersonajes.Peticion)
      */
     public ArrayList<Usuario> leerUsuario() throws ExcepcionPersonajes {
-        Peticion p = new Peticion(Operaciones.LEER_USUARIO, null, null);
-        return (ArrayList<Usuario>) conectar(p);
+        Peticion peticion = new Peticion(Operaciones.LEER_USUARIO, null, null);
+        return (ArrayList<Usuario>) conectar(peticion);
     }
 
     /**
@@ -137,11 +174,38 @@ public class PersonajesCC {
      * @return El usuario solicitado o un objeto con sus campos a null
      *
      * @throws ExcepcionPersonajes Lanza una excepcion causada por el metodo
-     *                             conectar
+     *                             conectar, que proviene desde el servidor o es
+     *                             generada por las comunicaciones
      * @see #conectar(pojospersonajes.Peticion)
      */
     public Usuario leerUsuario(int id) throws ExcepcionPersonajes {
-        Peticion p = new Peticion(Operaciones.LEER_USUARIO, id, null);
-        return (Usuario) conectar(p);
+        Peticion peticion = new Peticion(Operaciones.LEER_USUARIO, id, null);
+        return (Usuario) conectar(peticion);
     }
+
+    public Integer insertarPersonaje(Personaje p) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_PERSONAJE, null, p);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer eliminarPersonaje(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_PERSONAJE, id, null);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer modificarPersonaje(Integer id, Personaje p) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_PERSONAJE, id, p);
+        return (Integer) conectar(peticion);
+    }
+
+    public ArrayList<Personaje> leerPersonaje() throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, null, null);
+        return (ArrayList<Personaje>) conectar(peticion);
+    }
+
+    public Personaje leerPersonaje(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, id, null);
+        return (Personaje) conectar(peticion);
+    }
+
 }
