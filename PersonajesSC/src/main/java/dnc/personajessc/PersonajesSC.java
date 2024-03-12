@@ -21,7 +21,7 @@ public class PersonajesSC {
             CadPersonajes.cargarDriver();
             log.debug("JDBC cargado");
             ServerSocket sr = new ServerSocket(puertoServidor);
-            log.info("Servidor iniciado, iniciando escucha de clientes");
+            log.info("Servidor iniciado, iniciando escucha");
             Socket clt;
             while (true) {
                 clt = sr.accept();
