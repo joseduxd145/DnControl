@@ -9,21 +9,24 @@ public class Peticion implements Serializable {
     private Integer arg1;
     private Integer arg2;
     private Object entidad;
+    private Usuario usuario;
 
     public Peticion() {
     }
 
-    public Peticion(Operaciones op, Integer arg1, Object entidad) {
+    public Peticion(Operaciones op, Integer arg1, Object entidad, Usuario usuario) {
         this.op = op;
         this.arg1 = arg1;
         this.entidad = entidad;
+        this.usuario = usuario;
     }
 
-    public Peticion(Operaciones op, Integer arg1, Integer arg2, Object entidad) {
+    public Peticion(Operaciones op, Integer arg1, Integer arg2, Object entidad, Usuario usuario) {
         this.op = op;
         this.arg1 = arg1;
         this.arg2 = arg2;
         this.entidad = entidad;
+        this.usuario = usuario;
     }
 
     public Operaciones getOp() {
@@ -58,10 +61,16 @@ public class Peticion implements Serializable {
         this.entidad = entidad;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
-        return "Peticion{" + "op=" + op + ", arg1=" + arg1 + ", arg2=" + arg2 + ", entidad=" + entidad + '}';
+        return "Peticion{" + "op=" + op + ", arg1=" + arg1 + ", arg2=" + arg2 + ", entidad=" + entidad + ", usuario=" + usuario + '}';
     }
-    
-    
 }
