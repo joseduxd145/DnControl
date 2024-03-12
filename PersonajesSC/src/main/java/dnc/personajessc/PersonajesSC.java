@@ -19,9 +19,9 @@ public class PersonajesSC {
         int puertoServidor = 30500;
         try {
             CadPersonajes.cargarDriver();
-            log.info("JDBC cargado");
+            log.debug("JDBC cargado");
             ServerSocket sr = new ServerSocket(puertoServidor);
-            log.info("Socket iniciado");
+            log.info("Servidor iniciado, iniciando escucha de clientes");
             Socket clt;
             while (true) {
                 clt = sr.accept();
@@ -32,7 +32,6 @@ public class PersonajesSC {
                 manejadorPeticiones mp = new manejadorPeticiones(clt, log);
                 new Thread(mp).start();
             }
-            //sr.close();
         }
         catch (IOException | ExcepcionPersonajes ex) {
             log.fatal(ex);
