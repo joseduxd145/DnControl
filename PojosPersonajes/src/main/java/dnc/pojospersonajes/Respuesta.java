@@ -51,4 +51,8 @@ public class Respuesta implements Serializable {
         this.e = e;
     }
 
+    @Override
+    public String toString() {
+        return "Respuesta{" + "op=" + op + ", entidad=" + entidad + ", e=" + e + '}';
+    }
 }
