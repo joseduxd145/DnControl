@@ -1925,7 +1925,7 @@ public class CadPersonajes {
     public boolean validarUsuario(Usuario u) throws ExcepcionPersonajes {
         boolean validacion = false;
         sql = "SELECT EMAIL, NOMBRE_USUARIO, PASSWD FROM USUARIO"
-                + "WHERE EMAIL = ? AND NOMBRE_USUARIO = ? AND PASSWD = ?";
+                + "WHERE EMAIL LIKE ? AND NOMBRE_USUARIO LIKE ? AND PASSWD LIKE ?";
         PreparedStatement ps;
         ResultSet res;
         try {
