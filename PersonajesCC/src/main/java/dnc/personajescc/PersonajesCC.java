@@ -22,6 +22,8 @@ public class PersonajesCC {
      */
     private final int puerto;
 
+    private Usuario usuario;
+
     /**
      * Constructor del cliente, que asigna los parametros de conexion con el
      * servidor
@@ -29,10 +31,12 @@ public class PersonajesCC {
      * @param ipServidor La direccion IPv4 en un string en el que se encuentra
      *                   el servidor al que conectar
      * @param puerto     El puerto que utilizar para la conexion con el servidor
+     * @param usuario    El usuario que utilizar para iniciar sesion
      */
-    public PersonajesCC(String ipServidor, int puerto) {
+    public PersonajesCC(String ipServidor, int puerto, Usuario usuario) {
         this.ipServidor = ipServidor;
         this.puerto = puerto;
+        this.usuario = usuario;
     }
 
     /**
@@ -112,7 +116,7 @@ public class PersonajesCC {
      * @see #conectar(pojospersonajes.Peticion)
      */
     public Integer insertarUsuario(Usuario u) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.INSERTAR_USUARIO, null, u);
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_USUARIO, null, u, usuario);
         return (Integer) conectar(peticion);
     }
 
@@ -129,7 +133,7 @@ public class PersonajesCC {
      *                             generada por las comunicaciones
      */
     public Integer eliminarUsuario(Integer id) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.ELIMINAR_USUARIO, id, null);
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_USUARIO, id, null, usuario);
         return (Integer) conectar(peticion);
     }
 
@@ -147,7 +151,7 @@ public class PersonajesCC {
      *                             generada por las comunicaciones
      */
     public Integer modificarUsuario(Integer id, Usuario u) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.MODIFICAR_USUARIO, id, u);
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_USUARIO, id, u, usuario);
         return (Integer) conectar(peticion);
     }
 
@@ -162,7 +166,7 @@ public class PersonajesCC {
      * @see #conectar(pojospersonajes.Peticion)
      */
     public ArrayList<Usuario> leerUsuario() throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.LEER_USUARIO, null, null);
+        Peticion peticion = new Peticion(Operaciones.LEER_USUARIO, null, null, usuario);
         return (ArrayList<Usuario>) conectar(peticion);
     }
 
@@ -179,33 +183,41 @@ public class PersonajesCC {
      * @see #conectar(pojospersonajes.Peticion)
      */
     public Usuario leerUsuario(int id) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.LEER_USUARIO, id, null);
+        Peticion peticion = new Peticion(Operaciones.LEER_USUARIO, id, null, usuario);
         return (Usuario) conectar(peticion);
     }
 
     public Integer insertarPersonaje(Personaje p) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.INSERTAR_PERSONAJE, null, p);
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_PERSONAJE, null, p, usuario);
         return (Integer) conectar(peticion);
     }
 
     public Integer eliminarPersonaje(Integer id) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.ELIMINAR_PERSONAJE, id, null);
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_PERSONAJE, id, null, usuario);
         return (Integer) conectar(peticion);
     }
 
     public Integer modificarPersonaje(Integer id, Personaje p) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.MODIFICAR_PERSONAJE, id, p);
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_PERSONAJE, id, p, usuario);
         return (Integer) conectar(peticion);
     }
 
     public ArrayList<Personaje> leerPersonaje() throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, null, null);
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, null, null, usuario);
         return (ArrayList<Personaje>) conectar(peticion);
     }
 
     public Personaje leerPersonaje(Integer id) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, id, null);
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, id, null, usuario);
         return (Personaje) conectar(peticion);
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }
