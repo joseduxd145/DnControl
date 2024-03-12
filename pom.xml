@@ -35,13 +35,7 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        
-                    </execution>
-                </executions>
+                
             </plugin>
         </plugins>
     </build>
