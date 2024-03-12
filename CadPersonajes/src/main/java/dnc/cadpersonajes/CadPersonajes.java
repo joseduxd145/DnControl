@@ -1893,7 +1893,8 @@ public class CadPersonajes {
                 PersonajeHabilidad ph = new PersonajeHabilidad(p, h);
                 personajesHabilidades.add(ph);
             }
-
+            res.close();
+            s.close();
             con.close();
         }
         catch (SQLException ex) {
