@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import dnc.pojospersonajes.*;
 import dnc.cadpersonajes.CadPersonajes;
-import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 public class manejadorPeticiones implements Runnable {
