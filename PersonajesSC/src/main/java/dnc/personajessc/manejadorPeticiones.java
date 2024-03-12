@@ -6,31 +6,40 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import dnc.pojospersonajes.*;
 import dnc.cadpersonajes.CadPersonajes;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import org.apache.log4j.Logger;
 
 public class manejadorPeticiones implements Runnable {
-
+    
     private final Socket clt;
     private CadPersonajes c;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private final Logger log;
-
+    private MessageDigest md;
+    
     public manejadorPeticiones(Socket clt, Logger log) {
         this.clt = clt;
         this.log = log;
     }
-
+    
     @Override
     public void run() {
         log.info("Inicio de la comunicacion");
         try {
+            md = MessageDigest.getInstance("SHA-256");
+            
             c = new CadPersonajes("127.0.0.1", "xe", "dncontrol", "dam205");
-
+            
             ois = new ObjectInputStream(clt.getInputStream());
             Peticion p = (Peticion) ois.readObject();
+            
+            p.setUsuario(convertirUsuario(p.getUsuario()));
+            
             log.debug(p);
-
+            
             Respuesta r = new Respuesta();
             r.setOp(p.getOp());
             oos = new ObjectOutputStream(clt.getOutputStream());
@@ -148,96 +157,106 @@ public class manejadorPeticiones implements Runnable {
         catch (ExcepcionPersonajes ex) {
             manejadorEP(ex);
         }
+        catch (NoSuchAlgorithmException ex) {
+            manejardorNSAE(ex);
+        }
+        catch (NullPointerException ex) {
+            manejadorNPE(ex);
+        }
     }
-
+    
     private Integer insertarUsuario(Peticion p) throws ExcepcionPersonajes {
+        //Realizar hash sobre el objeto usuario para evitar problemas
+        p.setEntidad(convertirUsuario((Usuario) p.getEntidad()));
         return c.insertarUsuario((Usuario) p.getEntidad());
     }
-
+    
     private Integer eliminarUsuario(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarUsuario(p.getArg1());
     }
-
+    
     private Integer modificarUsuario(Peticion p) throws ExcepcionPersonajes {
+        //Realizar hash sobre el objeto usuario para evitar problemas
+        p.setEntidad(convertirUsuario((Usuario) p.getEntidad()));
         return c.modificarUsuario(p.getArg1(), (Usuario) p.getEntidad());
     }
-
+    
     private Object leerUsuario(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerUsuario();
         }
         return c.leerUsuario(p.getArg1());
     }
-
+    
     private Integer insertarPersonaje(Peticion p) throws ExcepcionPersonajes {
         return c.insertarPersonaje((Personaje) p.getEntidad());
     }
-
+    
     private Integer eliminarPersonaje(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarPersonaje(p.getArg1());
     }
-
+    
     private Integer modificarPersonaje(Peticion p) throws ExcepcionPersonajes {
         return c.modificarPersonaje(p.getArg1(), (Personaje) p.getEntidad());
     }
-
+    
     private Object leerPersonaje(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerPersonaje();
         }
         return c.leerPersonaje(p.getArg1());
     }
-
+    
     private Integer insertarObjeto(Peticion p) throws ExcepcionPersonajes {
         return c.insertarObjeto((Objeto) p.getEntidad());
     }
-
+    
     private Integer eliminarObjeto(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarObjeto(p.getArg1());
     }
-
+    
     private Integer modificarObjeto(Peticion p) throws ExcepcionPersonajes {
         return c.modificarObjeto(p.getArg1(), (Objeto) p.getEntidad());
     }
-
+    
     private Object leerObjeto(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerObjeto();
         }
         return c.leerObjeto(p.getArg1());
     }
-
+    
     private Integer insertarHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.insertarHabilidad((Habilidad) p.getEntidad());
     }
-
+    
     private Integer eliminarHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarHabilidad(p.getArg1());
     }
-
+    
     private Integer modificarHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.modificarHabilidad(p.getArg1(), (Habilidad) p.getEntidad());
     }
-
+    
     private Object leerHabilidad(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerHabilidad();
         }
         return c.leerHabilidad(p.getArg1());
     }
-
+    
     private Integer insertarPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.insertarPersonajeHabilidad((PersonajeHabilidad) p.getEntidad());
     }
-
+    
     private Integer eliminarPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarPersonajeHabilidad(p.getArg1(), p.getArg2());
     }
-
+    
     private Integer modificarPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.modificarPersonajeHabilidad(p.getArg1(), p.getArg2(), (PersonajeHabilidad) p.getEntidad());
     }
-
+    
     private Object leerPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null && p.getArg2() == null) {
             return c.leerPersonajeHabilidad();
@@ -247,24 +266,43 @@ public class manejadorPeticiones implements Runnable {
         }
         return c.leerPersonajeHabilidad(p.getArg1(), p.getArg2());
     }
-
+    
     private Integer insertarSelNumDado(Peticion p) throws ExcepcionPersonajes {
         return c.insertarSelNumDado((SelNumDado) p.getEntidad());
     }
-
+    
     private Integer eliminarSelNumDado(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarSelNumDado(p.getArg1());
     }
-
+    
     private Integer modificarSelNumDado(Peticion p) throws ExcepcionPersonajes {
         return c.modificarSelNumDado(p.getArg1(), (SelNumDado) p.getEntidad());
     }
-
+    
     private Object leerSelNumDado(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerSelNumDado();
         }
         return c.leerSelNumDado(p.getArg1());
+    }
+    
+    private String realizarHash(String entrada) {
+        String respuesta = "";
+        String aux;
+        byte[] hash = md.digest(entrada.getBytes(StandardCharsets.UTF_8));
+        for (int i = 0; i < hash.length; i++) {
+            aux = Integer.toHexString(hash[i] & 0xFF);
+            if (aux.length() == 1) {
+                aux = "0" + aux;
+            }
+            respuesta = respuesta + aux;
+        }
+        return respuesta;
+    }
+    
+    private Usuario convertirUsuario(Usuario u) {
+        u.setPasswd(realizarHash(u.getPasswd()));
+        return u;
     }
 
     /**
@@ -290,14 +328,14 @@ public class manejadorPeticiones implements Runnable {
                 ex.getMessage(),
                 null,
                 null);
-
+        
         if (oos != null) {
             Respuesta rError = new Respuesta();
             rError.setE(e);
             try {
                 oos.writeObject(rError);
-                oos.close();
                 ois.close();
+                oos.close();
                 clt.close();
             }
             catch (IOException ex1) {
@@ -313,14 +351,65 @@ public class manejadorPeticiones implements Runnable {
      */
     private void manejadorEP(ExcepcionPersonajes ex) {
         log.error(ex);
-
+        
         if (oos != null) {
             Respuesta rError = new Respuesta();
             rError.setE(ex);
             try {
                 oos.writeObject(rError);
-                oos.close();
                 ois.close();
+                oos.close();
+                clt.close();
+            }
+            catch (IOException ex1) {
+                manejarIOE(ex1);
+            }
+        }
+    }
+    
+    private void manejardorNSAE(NoSuchAlgorithmException ex) {
+        log.error(ex);
+        try {
+            ois = new ObjectInputStream(clt.getInputStream());
+            Peticion p = (Peticion) ois.readObject();
+            log.debug(p);
+            
+            Respuesta r = new Respuesta();
+            r.setOp(p.getOp());
+            r.setE(new ExcepcionPersonajes(
+                    "Error general del sistema, contacte con el administrador",
+                    ex.getMessage(),
+                    null,
+                    null));
+            oos = new ObjectOutputStream(clt.getOutputStream());
+            
+            oos.writeObject(r);
+            ois.close();
+            oos.close();
+            clt.close();
+        }
+        catch (IOException ex1) {
+            manejarIOE(ex1);
+        }
+        catch (ClassNotFoundException ex1) {
+            manejadorCNFE(ex1);
+        }
+    }
+    
+    private void manejadorNPE(NullPointerException ex) {
+        log.error(ex);
+        
+        if (oos != null) {
+            Respuesta rError = new Respuesta();
+            rError.setE(new ExcepcionPersonajes(
+                    "Error general del sistema, contacte con el administrador",
+                    ex.getMessage(),
+                    null,
+                    null));
+            try {
+                oos.writeObject(rError);
+                ois.close();
+                oos.close();
                 clt.close();
             }
             catch (IOException ex1) {
