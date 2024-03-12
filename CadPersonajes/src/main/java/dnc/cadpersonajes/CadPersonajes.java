@@ -1908,4 +1908,64 @@ public class CadPersonajes {
 
         return personajesHabilidades;
     }
+
+    /**
+     * Metodo que valida que un usuario se encuentra dentro de la tabla USUARIO
+     *
+     * @param u El usuario a comprobar, con los datos. Solo son necesarios el
+     *          EMAIL, NOMBRE_USUARIO, PASSWD para verificar
+     *
+     * @return Devuelve true si el usuario se encuentra en la bd, devulve false
+     *         en caso contrario
+     *
+     * @throws ExcepcionPersonajes Lanza una excepcion si ocurre algun error en
+     *                             la comunicacion con la bd o los datos de
+     *                             entrada son invalidos
+     */
+    public boolean validarUsuario(Usuario u) throws ExcepcionPersonajes {
+        boolean validacion = false;
+        sql = "SELECT EMAIL, NOMBRE_USUARIO, PASSWD FROM USUARIO"
+                + "WHERE EMAIL = ? AND NOMBRE_USUARIO = ? AND PASSWD = ?";
+        PreparedStatement ps;
+        ResultSet res;
+        try {
+            conectarBd();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, u.getEmail());
+            ps.setString(2, u.getNombreUsuario());
+            ps.setString(3, u.getPasswd());
+
+            res = ps.executeQuery();
+
+            if (res.next()) {
+                Usuario usuario;
+
+                try {
+                    usuario = new Usuario(res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"));
+                }
+                catch (NullPointerException e) {
+                    usuario = new Usuario();
+                }
+
+                validacion = u.equals(usuario);
+            }
+
+            res.close();
+            ps.close();
+            con.close();
+        }
+        catch (SQLException ex) {
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error de login, contacte con el administrador");
+            e.setSentenciaSql(sql);
+
+            throw e;
+        }
+        return validacion;
+    }
 }
