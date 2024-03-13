@@ -1,6 +1,7 @@
 package dnc.personajescc;
 
 import dnc.pojospersonajes.*;
+import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -8,10 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Admin
  */
 public class PersonajesCCIT {
-    
+
     private final PersonajesCC pcc;
-    
-    
+
     public PersonajesCCIT() {
         //Usuario para poder realizar acciones a traves del servidor
         Usuario u = new Usuario("admin@gmail.com", "admin", "admin");
@@ -26,7 +26,7 @@ public class PersonajesCCIT {
         Usuario u = new Usuario("", "", "");
         Integer ra;
         ra = pcc.insertarUsuario(u);
-        assertEquals(0, ra);
+        assertEquals(1, ra);
     }
 
     /**
@@ -34,6 +34,10 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testEliminarUsuario() throws Exception {
+        Integer id = 4;
+        Integer ra;
+        ra = pcc.eliminarUsuario(id);
+        assertEquals(1, ra);
     }
 
     /**
@@ -41,6 +45,11 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testModificarUsuario() throws Exception {
+        Integer id = 3;
+        Usuario u = new Usuario("", "", "");
+        Integer ra;
+        ra = pcc.modificarUsuario(id, u);
+        assertEquals(1, ra);
     }
 
     /**
@@ -48,6 +57,9 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testLeerUsuario_0args() throws Exception {
+        ArrayList<Usuario> expected = new ArrayList<>();
+        ArrayList<Usuario> actual = pcc.leerUsuario();
+        assertNotEquals(expected, actual);
     }
 
     /**
@@ -55,6 +67,9 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testLeerUsuario_int() throws Exception {
+        Integer id = 2;
+        Usuario expected = new Usuario();
+        Usuario actual = pcc.leerUsuario(id);
     }
 
     /**
