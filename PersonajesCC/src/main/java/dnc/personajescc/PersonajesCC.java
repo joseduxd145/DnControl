@@ -22,7 +22,7 @@ public class PersonajesCC {
      */
     private final int puerto;
 
-    private Usuario usuario;
+    private final Usuario usuario;
 
     /**
      * Constructor del cliente, que asigna los parametros de conexion con el
@@ -317,13 +317,4 @@ public class PersonajesCC {
         Peticion peticion = new Peticion(Operaciones.LEER_SEL_NUM_DADO, id, null, usuario);
         return (SelNumDado) conectar(peticion);
     }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
 }
