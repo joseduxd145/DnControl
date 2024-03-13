@@ -212,6 +212,112 @@ public class PersonajesCC {
         return (Personaje) conectar(peticion);
     }
 
+    public Integer insertarObjeto(Objeto o) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_OBJETO, null, o, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer eliminarObjeto(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_OBJETO, id, null, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer modificarObjeto(Integer id, Objeto o) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_OBJETO, id, o, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public ArrayList<Objeto> leerObjeto() throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_OBJETO, null, null, usuario);
+        return (ArrayList<Objeto>) conectar(peticion);
+    }
+
+    public Objeto leerObjeto(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_OBJETO, id, null, usuario);
+        return (Objeto) conectar(peticion);
+    }
+
+    public Integer insertarHabilidad(Habilidad h) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_HABILIDAD, null, h, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer eliminarHabilidad(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_HABILIDAD, id, null, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer modificarHabilidad(Integer id, Habilidad h) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_HABILIDAD, id, h, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public ArrayList<Habilidad> leerHabilidad() throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_HABILIDAD, null, null, usuario);
+        return (ArrayList<Habilidad>) conectar(peticion);
+    }
+
+    public Habilidad leerHabilidad(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_HABILIDAD, id, null, usuario);
+        return (Habilidad) conectar(peticion);
+    }
+
+    public Integer insertarPersonajeHabilidad(PersonajeHabilidad ph) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_PERSONAJE_HABILIDAD, null, ph, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer eliminarPersonajeHabilidad(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_PERSONAJE_HABILIDAD, id, null, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer modificarPersonajeHabilidad(Integer idPersonaje, Integer idHabilidad, PersonajeHabilidad ph) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_PERSONAJE_HABILIDAD, idPersonaje, idHabilidad, ph, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public ArrayList<PersonajeHabilidad> leerPersonajeHabilidad() throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE_HABILIDAD, null, null, usuario);
+        return (ArrayList<PersonajeHabilidad>) conectar(peticion);
+    }
+
+    public ArrayList<Habilidad> leerPersonajeHabilidad(Integer idPersonaje) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE_HABILIDAD, idPersonaje, null, usuario);
+        return (ArrayList<Habilidad>) conectar(peticion);
+    }
+
+    @Deprecated
+    public PersonajeHabilidad leerPersonajeHabilidad(Integer idPersonaje, Integer idHabilidad) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE_HABILIDAD, idPersonaje, idHabilidad, null, usuario);
+        return (PersonajeHabilidad) conectar(peticion);
+    }
+
+    public Integer insertarSelNumDado(SelNumDado snd) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.INSERTAR_SEL_NUM_DADO, null, snd, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer eliminarSelNumDado(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_SEL_NUM_DADO, id, null, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public Integer modificarSelNumDado(Integer id, SelNumDado snd) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.MODIFICAR_SEL_NUM_DADO, id, snd, usuario);
+        return (Integer) conectar(peticion);
+    }
+
+    public ArrayList<SelNumDado> leerSelNumDado() throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_SEL_NUM_DADO, null, null, usuario);
+        return (ArrayList<SelNumDado>) conectar(peticion);
+    }
+
+    public SelNumDado leerSelNumDado(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_SEL_NUM_DADO, id, null, usuario);
+        return (SelNumDado) conectar(peticion);
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
