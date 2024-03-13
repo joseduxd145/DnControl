@@ -59,9 +59,9 @@ public class manejadorPeticiones implements Runnable {
                 log.info("Fin de la comunicacion");
                 return;
             }
-            
+
             r = seleccionarOperacion(p, r);
-            
+
             oos.writeObject(r);
             ois.close();
             oos.close();
