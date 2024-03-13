@@ -1,6 +1,7 @@
 package dnc.pojospersonajes;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Objeto implements Serializable {
 
@@ -71,6 +72,40 @@ public class Objeto implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.personajeId);
+        hash = 83 * hash + Objects.hashCode(this.nombreObjeto);
+        hash = 83 * hash + Objects.hashCode(this.descripcion);
+        hash = 83 * hash + Objects.hashCode(this.valor);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Objeto other = (Objeto) obj;
+        if (!Objects.equals(this.nombreObjeto, other.nombreObjeto)) {
+            return false;
+        }
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
+            return false;
+        }
+        if (!Objects.equals(this.personajeId, other.personajeId)) {
+            return false;
+        }
+        return Objects.equals(this.valor, other.valor);
     }
 
     @Override

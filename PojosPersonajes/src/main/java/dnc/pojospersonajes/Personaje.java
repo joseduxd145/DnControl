@@ -1,6 +1,7 @@
 package dnc.pojospersonajes;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Personaje implements Serializable {
 
@@ -172,6 +173,68 @@ public class Personaje implements Serializable {
 
     public void setCarisma(Integer carisma) {
         this.carisma = carisma;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.usuarioId);
+        hash = 79 * hash + Objects.hashCode(this.nombrePersonaje);
+        hash = 79 * hash + Objects.hashCode(this.apellido);
+        hash = 79 * hash + Objects.hashCode(this.transfondo);
+        hash = 79 * hash + Objects.hashCode(this.fuerza);
+        hash = 79 * hash + Objects.hashCode(this.destreza);
+        hash = 79 * hash + Objects.hashCode(this.constitucion);
+        hash = 79 * hash + Objects.hashCode(this.inteligencia);
+        hash = 79 * hash + Objects.hashCode(this.sabiduria);
+        hash = 79 * hash + Objects.hashCode(this.carisma);
+        hash = 79 * hash + Objects.hashCode(this.jugador);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Personaje other = (Personaje) obj;
+        if (!Objects.equals(this.nombrePersonaje, other.nombrePersonaje)) {
+            return false;
+        }
+        if (!Objects.equals(this.apellido, other.apellido)) {
+            return false;
+        }
+        if (!Objects.equals(this.transfondo, other.transfondo)) {
+            return false;
+        }
+        if (!Objects.equals(this.jugador, other.jugador)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioId, other.usuarioId)) {
+            return false;
+        }
+        if (!Objects.equals(this.fuerza, other.fuerza)) {
+            return false;
+        }
+        if (!Objects.equals(this.destreza, other.destreza)) {
+            return false;
+        }
+        if (!Objects.equals(this.constitucion, other.constitucion)) {
+            return false;
+        }
+        if (!Objects.equals(this.inteligencia, other.inteligencia)) {
+            return false;
+        }
+        if (!Objects.equals(this.sabiduria, other.sabiduria)) {
+            return false;
+        }
+        return Objects.equals(this.carisma, other.carisma);
     }
 
     @Override

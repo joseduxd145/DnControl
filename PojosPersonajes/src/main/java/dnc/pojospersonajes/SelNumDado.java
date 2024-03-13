@@ -1,6 +1,7 @@
 package dnc.pojospersonajes;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class SelNumDado implements Serializable {
 
@@ -34,6 +35,28 @@ public class SelNumDado implements Serializable {
 
     public void setNumDadoId(Integer numDadoId) {
         this.numDadoId = numDadoId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.numDado);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SelNumDado other = (SelNumDado) obj;
+        return Objects.equals(this.numDado, other.numDado);
     }
 
     @Override

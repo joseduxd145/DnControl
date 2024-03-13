@@ -72,13 +72,8 @@ public class Usuario implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Usuario{" + "usuarioId=" + usuarioId + ", email=" + email + ", nombreUsuario=" + nombreUsuario + ", passwd=" + passwd + '}';
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 5;
         hash = 47 * hash + Objects.hashCode(this.email);
         hash = 47 * hash + Objects.hashCode(this.nombreUsuario);
         hash = 47 * hash + Objects.hashCode(this.passwd);
@@ -106,4 +101,8 @@ public class Usuario implements Serializable {
         return Objects.equals(this.passwd, other.passwd);
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "usuarioId=" + usuarioId + ", email=" + email + ", nombreUsuario=" + nombreUsuario + ", passwd=" + passwd + '}';
+    }
 }
