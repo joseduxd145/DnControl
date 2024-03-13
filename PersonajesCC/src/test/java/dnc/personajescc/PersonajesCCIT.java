@@ -13,7 +13,8 @@ public class PersonajesCCIT {
     
     
     public PersonajesCCIT() {
-        Usuario u = new Usuario("", "", "");
+        //Usuario para poder realizar acciones a traves del servidor
+        Usuario u = new Usuario("admin@gmail.com", "admin", "admin");
         pcc = new PersonajesCC("192.168.1.205", 11037, u);
     }
 
