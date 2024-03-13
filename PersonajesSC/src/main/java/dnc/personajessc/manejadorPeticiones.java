@@ -267,7 +267,7 @@ public class manejadorPeticiones implements Runnable {
         if (p.getArg1() == null && p.getArg2() == null) {
             return c.leerPersonajeHabilidad();
         }
-        else if (p.getArg2() == null) {
+        else if (p.getArg1() != null && p.getArg2() == null) {
             return c.leerPersonajeHabilidad(p.getArg1());
         }
         return c.leerPersonajeHabilidad(p.getArg1(), p.getArg2());
