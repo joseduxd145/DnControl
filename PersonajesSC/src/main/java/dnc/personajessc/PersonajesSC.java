@@ -16,7 +16,7 @@ public class PersonajesSC {
         PropertyConfigurator.configure(PersonajesSC.class.getClassLoader().getResource("logs/log4j.properties"));
         Logger log = LogManager.getLogger("MAINLOG");
         
-        int puertoServidor = 30500;
+        int puertoServidor = 11037;
         try {
             CadPersonajes.cargarDriver();
             log.debug("JDBC cargado");
