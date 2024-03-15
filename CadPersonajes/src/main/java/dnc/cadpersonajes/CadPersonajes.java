@@ -1,6 +1,5 @@
 package dnc.cadpersonajes;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -268,26 +267,25 @@ public class CadPersonajes {
      */
     public Usuario leerUsuario(Integer id) throws ExcepcionPersonajes {
         Usuario u = new Usuario();
-        sql = "SELECT * FROM USUARIO WHERE USUARIO_ID=?";
-        PreparedStatement sp;
+        sql = "SELECT * FROM USUARIO WHERE USUARIO_ID=" + id;
+        Statement s;
         ResultSet res;
 
         try {
             conectarBd();
 
-            sp = con.prepareCall(sql);
-            sp.setObject(1, id, Types.INTEGER);
-            res = sp.executeQuery();
+            s = con.createStatement();
+            res = s.executeQuery(sql);
             if (res.next()) {
                 u = new Usuario(
-                        ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                        (Integer) res.getObject("USUARIO_ID"),
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
                         res.getString("PASSWD"));
             }
 
             res.close();
-            sp.close();
+            s.close();
             con.close();
         }
         catch (SQLException ex) {
@@ -326,7 +324,7 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
                 u = new Usuario(
-                        ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                        (Integer) res.getObject("USUARIO_ID"),
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
                         res.getString("PASSWD"));
@@ -572,7 +570,7 @@ public class CadPersonajes {
                 //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
                 try {
                     u = new Usuario(
-                            ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                            (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD")
@@ -583,17 +581,17 @@ public class CadPersonajes {
                 }
 
                 p = new Personaje(
-                        ((BigDecimal) res.getObject("PERSONAJE_ID")).intValue(),
+                        (Integer) res.getObject("PERSONAJE_ID"),
                         u,
                         res.getString("NOMBRE_PERSONAJE"),
                         res.getString("APELLIDO"),
                         res.getString("TRANSFONDO"),
-                        ((BigDecimal) res.getObject("FUERZA")).intValue(),
-                        ((BigDecimal) res.getObject("DESTREZA")).intValue(),
-                        ((BigDecimal) res.getObject("CONSTITUCION")).intValue(),
-                        ((BigDecimal) res.getObject("INTELIGENCIA")).intValue(),
-                        ((BigDecimal) res.getObject("SABIDURIA")).intValue(),
-                        ((BigDecimal) res.getObject("CARISMA")).intValue(),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
                         res.getString("JUGADOR"));
             }
 
@@ -640,7 +638,7 @@ public class CadPersonajes {
                 //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
                 try {
                     u = new Usuario(
-                            ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                            (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD")
@@ -652,17 +650,17 @@ public class CadPersonajes {
 
                 Personaje p;
                 p = new Personaje(
-                        ((BigDecimal) res.getObject("PERSONAJE_ID")).intValue(),
+                        (Integer) res.getObject("PERSONAJE_ID"),
                         u,
                         res.getString("NOMBRE_PERSONAJE"),
                         res.getString("APELLIDO"),
                         res.getString("TRANSFONDO"),
-                        ((BigDecimal) res.getObject("FUERZA")).intValue(),
-                        ((BigDecimal) res.getObject("DESTREZA")).intValue(),
-                        ((BigDecimal) res.getObject("CONSTITUCION")).intValue(),
-                        ((BigDecimal) res.getObject("INTELIGENCIA")).intValue(),
-                        ((BigDecimal) res.getObject("SABIDURIA")).intValue(),
-                        ((BigDecimal) res.getObject("CARISMA")).intValue(),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
                         res.getString("JUGADOR"));
 
                 Personajes.add(p);
@@ -859,7 +857,7 @@ public class CadPersonajes {
                 //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
                 try {
                     u = new Usuario(
-                            ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                            (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD")
@@ -873,17 +871,17 @@ public class CadPersonajes {
 
                 try {
                     p = new Personaje(
-                            ((BigDecimal) res.getObject("PERSONAJE_ID")).intValue(),
+                            (Integer) res.getObject("PERSONAJE_ID"),
                             u,
                             res.getString("NOMBRE_PERSONAJE"),
                             res.getString("APELLIDO"),
                             res.getString("TRANSFONDO"),
-                            ((BigDecimal) res.getObject("FUERZA")).intValue(),
-                            ((BigDecimal) res.getObject("DESTREZA")).intValue(),
-                            ((BigDecimal) res.getObject("CONSTITUCION")).intValue(),
-                            ((BigDecimal) res.getObject("INTELIGENCIA")).intValue(),
-                            ((BigDecimal) res.getObject("SABIDURIA")).intValue(),
-                            ((BigDecimal) res.getObject("CARISMA")).intValue(),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
                             res.getString("JUGADOR"));
                 }
                 catch (NullPointerException e) {
@@ -893,11 +891,11 @@ public class CadPersonajes {
                 Objeto o;
 
                 o = new Objeto(
-                        ((BigDecimal) res.getObject("OBJETO_ID")).intValue(),
+                        (Integer) res.getObject("OBJETO_ID"),
                         p,
                         res.getString("NOMBRE_OBJETO"),
                         res.getString("DESCRIPCION"),
-                        ((BigDecimal) res.getObject("VALOR")).intValue());
+                        (Integer) res.getObject("VALOR"));
 
                 objetos.add(o);
             }
@@ -948,7 +946,7 @@ public class CadPersonajes {
                 //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
                 try {
                     u = new Usuario(
-                            ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                            (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD")
@@ -962,17 +960,17 @@ public class CadPersonajes {
 
                 try {
                     p = new Personaje(
-                            ((BigDecimal) res.getObject("PERSONAJE_ID")).intValue(),
+                            (Integer) res.getObject("PERSONAJE_ID"),
                             u,
                             res.getString("NOMBRE_PERSONAJE"),
                             res.getString("APELLIDO"),
                             res.getString("TRANSFONDO"),
-                            ((BigDecimal) res.getObject("FUERZA")).intValue(),
-                            ((BigDecimal) res.getObject("DESTREZA")).intValue(),
-                            ((BigDecimal) res.getObject("CONSTITUCION")).intValue(),
-                            ((BigDecimal) res.getObject("INTELIGENCIA")).intValue(),
-                            ((BigDecimal) res.getObject("SABIDURIA")).intValue(),
-                            ((BigDecimal) res.getObject("CARISMA")).intValue(),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
                             res.getString("JUGADOR"));
                 }
                 catch (NullPointerException e) {
@@ -980,11 +978,11 @@ public class CadPersonajes {
                 }
 
                 o = new Objeto(
-                        ((BigDecimal) res.getObject("OBJETO_ID")).intValue(),
+                        (Integer) res.getObject("OBJETO_ID"),
                         p,
                         res.getString("NOMBRE_OBJETO"),
                         res.getString("DESCRIPCION"),
-                        ((BigDecimal) res.getObject("VALOR")).intValue());
+                        (Integer) res.getObject("VALOR"));
 
             }
 
@@ -1177,8 +1175,8 @@ public class CadPersonajes {
                 SelNumDado snd;
                 try {
                     snd = new SelNumDado(
-                            ((BigDecimal) res.getObject("NUM_DADO_ID")).intValue(),
-                            ((BigDecimal) res.getObject("NUM_DADO")).intValue());
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
                 }
                 catch (NullPointerException e) {
                     snd = null;
@@ -1187,11 +1185,11 @@ public class CadPersonajes {
                 Habilidad h;
 
                 h = new Habilidad(
-                        ((BigDecimal) res.getObject("HABILIDAD_ID")).intValue(),
+                        (Integer) res.getObject("HABILIDAD_ID"),
                         snd,
                         res.getString("NOMBRE_HABILIDAD"),
                         res.getString("DESCRIPCION"),
-                        ((BigDecimal) res.getObject("CANTIDAD_DADO")).intValue());
+                        (Integer) res.getObject("CANTIDAD_DADO"));
 
                 habilidades.add(h);
             }
@@ -1239,19 +1237,19 @@ public class CadPersonajes {
                 SelNumDado snd;
                 try {
                     snd = new SelNumDado(
-                            ((BigDecimal) res.getObject("NUM_DADO_ID")).intValue(),
-                            ((BigDecimal) res.getObject("NUM_DADO")).intValue());
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
                 }
                 catch (NullPointerException e) {
                     snd = null;
                 }
 
                 h = new Habilidad(
-                        ((BigDecimal) res.getObject("HABILIDAD_ID")).intValue(),
+                        (Integer) res.getObject("HABILIDAD_ID"),
                         snd,
                         res.getString("NOMBRE_HABILIDAD"),
                         res.getString("DESCRIPCION"),
-                        ((BigDecimal) res.getObject("CANTIDAD_DADO")).intValue());
+                        (Integer) res.getObject("CANTIDAD_DADO"));
             }
 
             res.close();
@@ -1420,8 +1418,8 @@ public class CadPersonajes {
 
             if (res.next()) {
                 snd = new SelNumDado(
-                        ((BigDecimal) res.getObject("NUM_DADO_ID")).intValue(),
-                        ((BigDecimal) res.getObject("NUM_DADO")).intValue());
+                        (Integer) res.getObject("NUM_DADO_ID"),
+                        (Integer) res.getObject("NUM_DADO"));
             }
 
             res.close();
@@ -1461,8 +1459,8 @@ public class CadPersonajes {
             if (res.next()) {
                 SelNumDado snd;
                 snd = new SelNumDado(
-                        ((BigDecimal) res.getObject("NUM_DADO_ID")).intValue(),
-                        ((BigDecimal) res.getObject("NUM_DADO")).intValue());
+                        (Integer) res.getObject("NUM_DADO_ID"),
+                        (Integer) res.getObject("NUM_DADO"));
                 selNumDado.add(snd);
             }
 
@@ -1667,7 +1665,7 @@ public class CadPersonajes {
                 //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
                 try {
                     u = new Usuario(
-                            ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                            (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD")
@@ -1681,17 +1679,17 @@ public class CadPersonajes {
 
                 try {
                     p = new Personaje(
-                            ((BigDecimal) res.getObject("PERSONAJE_ID")).intValue(),
+                            (Integer) res.getObject("PERSONAJE_ID"),
                             u,
                             res.getString("NOMBRE_PERSONAJE"),
                             res.getString("APELLIDO"),
                             res.getString("TRANSFONDO"),
-                            ((BigDecimal) res.getObject("FUERZA")).intValue(),
-                            ((BigDecimal) res.getObject("DESTREZA")).intValue(),
-                            ((BigDecimal) res.getObject("CONSTITUCION")).intValue(),
-                            ((BigDecimal) res.getObject("INTELIGENCIA")).intValue(),
-                            ((BigDecimal) res.getObject("SABIDURIA")).intValue(),
-                            ((BigDecimal) res.getObject("CARISMA")).intValue(),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
                             res.getString("JUGADOR"));
                 }
                 catch (NullPointerException e) {
@@ -1701,8 +1699,8 @@ public class CadPersonajes {
                 SelNumDado snd;
                 try {
                     snd = new SelNumDado(
-                            ((BigDecimal) res.getObject("NUM_DADO_ID")).intValue(),
-                            ((BigDecimal) res.getObject("NUM_DADO")).intValue());
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
                 }
                 catch (NullPointerException e) {
                     snd = null;
@@ -1712,11 +1710,11 @@ public class CadPersonajes {
 
                 try {
                     h = new Habilidad(
-                            ((BigDecimal) res.getObject("HABILIDAD_ID")).intValue(),
+                            (Integer) res.getObject("HABILIDAD_ID"),
                             snd,
                             res.getString("NOMBRE_HABILIDAD"),
                             res.getString("DESCRIPCION"),
-                            ((BigDecimal) res.getObject("CANTIDAD_DADO")).intValue());
+                            (Integer) res.getObject("CANTIDAD_DADO"));
                 }
                 catch (NullPointerException e) {
                     h = null;
@@ -1773,8 +1771,8 @@ public class CadPersonajes {
                 SelNumDado snd;
                 try {
                     snd = new SelNumDado(
-                            ((BigDecimal) res.getObject("NUM_DADO_ID")).intValue(),
-                            ((BigDecimal) res.getObject("NUM_DADO")).intValue());
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
                 }
                 catch (NullPointerException e) {
                     snd = null;
@@ -1782,11 +1780,11 @@ public class CadPersonajes {
 
                 Habilidad h;
                 h = new Habilidad(
-                        ((BigDecimal) res.getObject("HABILIDAD_ID")).intValue(),
+                        (Integer) res.getObject("HABILIDAD_ID"),
                         snd,
                         res.getString("NOMBRE_HABILIDAD"),
                         res.getString("DESCRIPCION"),
-                        ((BigDecimal) res.getObject("CANTIDAD_DADO")).intValue());
+                        (Integer) res.getObject("CANTIDAD_DADO"));
 
                 habilidades.add(h);
             }
@@ -1834,7 +1832,7 @@ public class CadPersonajes {
                 //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
                 try {
                     u = new Usuario(
-                            ((BigDecimal) res.getObject("USUARIO_ID")).intValue(),
+                            (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD")
@@ -1848,17 +1846,17 @@ public class CadPersonajes {
 
                 try {
                     p = new Personaje(
-                            ((BigDecimal) res.getObject("PERSONAJE_ID")).intValue(),
+                            (Integer) res.getObject("PERSONAJE_ID"),
                             u,
                             res.getString("NOMBRE_PERSONAJE"),
                             res.getString("APELLIDO"),
                             res.getString("TRANSFONDO"),
-                            ((BigDecimal) res.getObject("FUERZA")).intValue(),
-                            ((BigDecimal) res.getObject("DESTREZA")).intValue(),
-                            ((BigDecimal) res.getObject("CONSTITUCION")).intValue(),
-                            ((BigDecimal) res.getObject("INTELIGENCIA")).intValue(),
-                            ((BigDecimal) res.getObject("SABIDURIA")).intValue(),
-                            ((BigDecimal) res.getObject("CARISMA")).intValue(),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
                             res.getString("JUGADOR"));
                 }
                 catch (NullPointerException e) {
@@ -1868,8 +1866,8 @@ public class CadPersonajes {
                 SelNumDado snd;
                 try {
                     snd = new SelNumDado(
-                            ((BigDecimal) res.getObject("NUM_DADO_ID")).intValue(),
-                            ((BigDecimal) res.getObject("NUM_DADO")).intValue());
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
                 }
                 catch (NullPointerException e) {
                     snd = null;
@@ -1879,11 +1877,11 @@ public class CadPersonajes {
 
                 try {
                     h = new Habilidad(
-                            ((BigDecimal) res.getObject("HABILIDAD_ID")).intValue(),
+                            (Integer) res.getObject("HABILIDAD_ID"),
                             snd,
                             res.getString("NOMBRE_HABILIDAD"),
                             res.getString("DESCRIPCION"),
-                            ((BigDecimal) res.getObject("CANTIDAD_DADO")).intValue());
+                            (Integer) res.getObject("CANTIDAD_DADO"));
                 }
                 catch (NullPointerException e) {
                     h = null;
