@@ -317,4 +317,9 @@ public class PersonajesCC {
         Peticion peticion = new Peticion(Operaciones.LEER_SEL_NUM_DADO, id, null, usuario);
         return (SelNumDado) conectar(peticion);
     }
+
+    public Boolean validarConexion() throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.VALIDAR_CONEXION, null, null, usuario);
+        return (Boolean) conectar(peticion);
+    }
 }
