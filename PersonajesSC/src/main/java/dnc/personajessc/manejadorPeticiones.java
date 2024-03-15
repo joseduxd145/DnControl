@@ -45,7 +45,7 @@ public class manejadorPeticiones implements Runnable {
             oos = new ObjectOutputStream(clt.getOutputStream());
 
             if (p.getOp() == Operaciones.VALIDAR_CONEXION) {
-                r.setEntidad(true);
+                r.setEntidad(c.validarUsuario(p.getUsuario()));
                 log.debug(r);
                 oos.writeObject(r);
                 ois.close();
