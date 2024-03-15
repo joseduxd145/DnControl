@@ -1,0 +1,142 @@
+[DEBUG]	 2024-03-15 12:32:50,432 | JDBC cargado
+[INFO]	 2024-03-15 12:32:50,438 | Servidor iniciado, iniciando escucha
+[INFO]	 2024-03-15 12:33:36,106 | Conexion recivida desde 127.0.0.1 y puerto 50532
+[INFO]	 2024-03-15 12:33:36,107 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:33:36,143 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.31282791264499055@test0.8406664846967261.es, nombreUsuario=test0.37194262906693454, passwd=test0.8969500797070608}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:33:36,250 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:33:36,252 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:33:36,258 | Conexion recivida desde 127.0.0.1 y puerto 50535
+[INFO]	 2024-03-15 12:33:36,259 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:33:36,260 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.8880970252162731@test0.3029674017790187.es, nombreUsuario=test0.7938406422561113, passwd=test0.5485571785778833}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:33:36,267 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:33:36,268 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:35:26,780 | Conexion recivida desde 127.0.0.1 y puerto 50547
+[INFO]	 2024-03-15 12:35:26,780 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:35:26,789 | Peticion{op=ELIMINAR_USUARIO, arg1=3, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:35:26,796 | Respuesta{op=ELIMINAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:35:26,797 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:35:26,808 | Conexion recivida desde 127.0.0.1 y puerto 50550
+[INFO]	 2024-03-15 12:35:26,808 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:35:26,809 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.29677969741452415@test0.7430196034591348.es, nombreUsuario=test0.9766278092990972, passwd=test0.5266625850653323}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:35:26,816 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:35:26,816 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:35:26,817 | Conexion recivida desde 127.0.0.1 y puerto 50553
+[INFO]	 2024-03-15 12:35:26,817 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:35:26,818 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.11769971132897028@test0.8245361795169099.es, nombreUsuario=test0.017142498950658336, passwd=test0.5109282048797588}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:35:26,824 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:35:26,825 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:35:26,833 | Conexion recivida desde 127.0.0.1 y puerto 50556
+[INFO]	 2024-03-15 12:35:26,833 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:35:26,834 | Peticion{op=LEER_USUARIO, arg1=null, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[INFO]	 2024-03-15 12:35:36,849 | Conexion recivida desde 127.0.0.1 y puerto 50559
+[INFO]	 2024-03-15 12:35:36,849 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:35:36,850 | Peticion{op=LEER_USUARIO, arg1=2, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[ERROR]	 2024-03-15 12:35:36,856 | 0	invalid callable syntax. must be like {[?=]call <procedure/function name>[(?,?, ...)]}
+ but was : SELECT * FROM USUARIO WHERE USUARIO_ID=?
+	SELECT * FROM USUARIO WHERE USUARIO_ID=?
+[INFO]	 2024-03-15 12:35:36,867 | Conexion recivida desde 127.0.0.1 y puerto 50562
+[INFO]	 2024-03-15 12:35:36,867 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:35:36,868 | Peticion{op=MODIFICAR_USUARIO, arg1=5, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.8785037594869707@test0.05276772098853855.es, nombreUsuario=test0.9617740868139733, passwd=test0.8478676995099433}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:35:36,875 | Respuesta{op=MODIFICAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:35:36,875 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:36:26,921 | Conexion recivida desde 127.0.0.1 y puerto 50565
+[INFO]	 2024-03-15 12:36:26,921 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:36:26,930 | Peticion{op=LEER_USUARIO, arg1=4, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[ERROR]	 2024-03-15 12:36:26,935 | 0	invalid callable syntax. must be like {[?=]call <procedure/function name>[(?,?, ...)]}
+ but was : SELECT * FROM USUARIO WHERE USUARIO_ID=?
+	SELECT * FROM USUARIO WHERE USUARIO_ID=?
+[DEBUG]	 2024-03-15 12:57:54,264 | JDBC cargado
+[INFO]	 2024-03-15 12:57:54,269 | Servidor iniciado, iniciando escucha
+[INFO]	 2024-03-15 12:58:13,386 | Conexion recivida desde 127.0.0.1 y puerto 50681
+[INFO]	 2024-03-15 12:58:13,388 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:58:13,423 | Peticion{op=ELIMINAR_USUARIO, arg1=3, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:58:13,529 | Respuesta{op=ELIMINAR_USUARIO, entidad=0, e=null}
+[INFO]	 2024-03-15 12:58:13,530 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:58:13,546 | Conexion recivida desde 127.0.0.1 y puerto 50684
+[INFO]	 2024-03-15 12:58:13,547 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:58:13,548 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.7643993253874525@test0.5485183478616551.es, nombreUsuario=test0.9061967371445409, passwd=test0.775822082668101}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:58:13,557 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:58:13,557 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:58:13,558 | Conexion recivida desde 127.0.0.1 y puerto 50687
+[INFO]	 2024-03-15 12:58:13,559 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:58:13,560 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.8515063444144452@test0.04064565800290609.es, nombreUsuario=test0.40409929106971687, passwd=test0.8836047556506291}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:58:13,566 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:58:13,567 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:58:13,575 | Conexion recivida desde 127.0.0.1 y puerto 50690
+[INFO]	 2024-03-15 12:58:13,575 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:58:13,576 | Peticion{op=LEER_USUARIO, arg1=null, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[INFO]	 2024-03-15 12:58:23,594 | Conexion recivida desde 127.0.0.1 y puerto 50693
+[INFO]	 2024-03-15 12:58:23,595 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:58:23,596 | Peticion{op=LEER_USUARIO, arg1=4, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[ERROR]	 2024-03-15 12:58:23,601 | 0	invalid callable syntax. must be like {[?=]call <procedure/function name>[(?,?, ...)]}
+ but was : SELECT * FROM USUARIO WHERE USUARIO_ID=?
+	SELECT * FROM USUARIO WHERE USUARIO_ID=?
+[INFO]	 2024-03-15 12:58:23,612 | Conexion recivida desde 127.0.0.1 y puerto 50696
+[INFO]	 2024-03-15 12:58:23,613 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:58:23,613 | Peticion{op=MODIFICAR_USUARIO, arg1=5, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.49110464901018025@test0.43635744404110766.es, nombreUsuario=test0.5320455133201333, passwd=test0.7835355688169976}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:58:23,621 | Respuesta{op=MODIFICAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:58:23,621 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:59:23,748 | Conexion recivida desde 127.0.0.1 y puerto 50718
+[INFO]	 2024-03-15 12:59:23,748 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:59:23,757 | Peticion{op=ELIMINAR_USUARIO, arg1=5, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:59:23,763 | Respuesta{op=ELIMINAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:59:23,764 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:59:23,775 | Conexion recivida desde 127.0.0.1 y puerto 50721
+[INFO]	 2024-03-15 12:59:23,776 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:59:23,776 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.6192540576177139@test0.10731815913160303.es, nombreUsuario=test0.2222867762093096, passwd=test0.5778228154023959}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:59:23,783 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:59:23,783 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:59:23,784 | Conexion recivida desde 127.0.0.1 y puerto 50724
+[INFO]	 2024-03-15 12:59:23,785 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:59:23,785 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.44717932448564435@test0.3813040039954315.es, nombreUsuario=test0.19497840097873653, passwd=test0.0833537548099349}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:59:23,791 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:59:23,791 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:59:23,799 | Conexion recivida desde 127.0.0.1 y puerto 50727
+[INFO]	 2024-03-15 12:59:23,800 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:59:23,800 | Peticion{op=LEER_USUARIO, arg1=null, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[INFO]	 2024-03-15 12:59:33,814 | Conexion recivida desde 127.0.0.1 y puerto 50731
+[INFO]	 2024-03-15 12:59:33,814 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:59:33,815 | Peticion{op=LEER_USUARIO, arg1=8, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[ERROR]	 2024-03-15 12:59:33,819 | 0	invalid callable syntax. must be like {[?=]call <procedure/function name>[(?,?, ...)]}
+ but was : SELECT * FROM USUARIO WHERE USUARIO_ID=?
+	SELECT * FROM USUARIO WHERE USUARIO_ID=?
+[INFO]	 2024-03-15 12:59:33,830 | Conexion recivida desde 127.0.0.1 y puerto 50734
+[INFO]	 2024-03-15 12:59:33,831 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:59:33,831 | Peticion{op=MODIFICAR_USUARIO, arg1=7, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.3720820937233884@test0.8276241373592965.es, nombreUsuario=test0.6134757537542779, passwd=test0.7342455473422694}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 12:59:33,837 | Respuesta{op=MODIFICAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 12:59:33,837 | Fin de la comunicacion
+[INFO]	 2024-03-15 12:59:53,190 | Conexion recivida desde 127.0.0.1 y puerto 50738
+[INFO]	 2024-03-15 12:59:53,190 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 12:59:53,197 | Peticion{op=LEER_USUARIO, arg1=null, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 13:01:17,802 | JDBC cargado
+[INFO]	 2024-03-15 13:01:17,808 | Servidor iniciado, iniciando escucha
+[INFO]	 2024-03-15 13:01:26,940 | Conexion recivida desde 127.0.0.1 y puerto 50760
+[INFO]	 2024-03-15 13:01:26,942 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 13:01:26,979 | Peticion{op=ELIMINAR_USUARIO, arg1=6, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 13:01:27,086 | Respuesta{op=ELIMINAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 13:01:27,087 | Fin de la comunicacion
+[INFO]	 2024-03-15 13:01:27,098 | Conexion recivida desde 127.0.0.1 y puerto 50763
+[INFO]	 2024-03-15 13:01:27,098 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 13:01:27,100 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.21027755744561483@test0.37758451723821973.es, nombreUsuario=test0.848205351977872, passwd=test0.25222909526475157}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 13:01:27,108 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 13:01:27,108 | Fin de la comunicacion
+[INFO]	 2024-03-15 13:01:27,109 | Conexion recivida desde 127.0.0.1 y puerto 50766
+[INFO]	 2024-03-15 13:01:27,110 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 13:01:27,111 | Peticion{op=INSERTAR_USUARIO, arg1=null, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.5125977832715936@test0.8737923748609937.es, nombreUsuario=test0.5251677387838252, passwd=test0.7816253825662413}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 13:01:27,117 | Respuesta{op=INSERTAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 13:01:27,117 | Fin de la comunicacion
+[INFO]	 2024-03-15 13:01:27,126 | Conexion recivida desde 127.0.0.1 y puerto 50769
+[INFO]	 2024-03-15 13:01:27,127 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 13:01:27,128 | Peticion{op=LEER_USUARIO, arg1=null, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 13:01:27,134 | Respuesta{op=LEER_USUARIO, entidad=[Usuario{usuarioId=1, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}, Usuario{usuarioId=4, email=testIt0.8880970252162731@test0.3029674017790187.es, nombreUsuario=test0.7938406422561113, passwd=d2dc75e7cece8049cfd05d3e8c518caf683f25e0b768bb7355a497ed627b75e1}, Usuario{usuarioId=7, email=testIt0.3720820937233884@test0.8276241373592965.es, nombreUsuario=test0.6134757537542779, passwd=e3fc50ee2c85377240fa508f78ff9a303954869840ee2042fa7853e9417f9792}, Usuario{usuarioId=8, email=testIt0.8515063444144452@test0.04064565800290609.es, nombreUsuario=test0.40409929106971687, passwd=a09911b11156ecdebdaf5d35b44127a7631397ca7f80eb30f612b8a353f528e0}, Usuario{usuarioId=9, email=testIt0.6192540576177139@test0.10731815913160303.es, nombreUsuario=test0.2222867762093096, passwd=9a1e1c097b3beaf6423f6aed43ac4ea8eb69158180f1aeddec37f0082a82a638}, Usuario{usuarioId=10, email=testIt0.44717932448564435@test0.3813040039954315.es, nombreUsuario=test0.19497840097873653, passwd=a07097a8dfb608dc7492af350e7079044381d85af1d25d380aad0c9b090cec3f}, Usuario{usuarioId=11, email=testIt0.21027755744561483@test0.37758451723821973.es, nombreUsuario=test0.848205351977872, passwd=6aa0160182246b14e402c0362fad7905b427e2dfe56da5797c1ce0b9f884e396}, Usuario{usuarioId=12, email=testIt0.5125977832715936@test0.8737923748609937.es, nombreUsuario=test0.5251677387838252, passwd=117e93124dc61c2af0638d4f9988127d2e60edd614242ca8f4433289448f1afa}], e=null}
+[INFO]	 2024-03-15 13:01:27,137 | Fin de la comunicacion
+[INFO]	 2024-03-15 13:01:27,141 | Conexion recivida desde 127.0.0.1 y puerto 50772
+[INFO]	 2024-03-15 13:01:27,141 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 13:01:27,142 | Peticion{op=LEER_USUARIO, arg1=8, arg2=null, entidad=null, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 13:01:27,147 | Respuesta{op=LEER_USUARIO, entidad=Usuario{usuarioId=8, email=testIt0.8515063444144452@test0.04064565800290609.es, nombreUsuario=test0.40409929106971687, passwd=a09911b11156ecdebdaf5d35b44127a7631397ca7f80eb30f612b8a353f528e0}, e=null}
+[INFO]	 2024-03-15 13:01:27,148 | Fin de la comunicacion
+[INFO]	 2024-03-15 13:01:27,151 | Conexion recivida desde 127.0.0.1 y puerto 50775
+[INFO]	 2024-03-15 13:01:27,152 | Inicio de la comunicacion
+[DEBUG]	 2024-03-15 13:01:27,153 | Peticion{op=MODIFICAR_USUARIO, arg1=7, arg2=null, entidad=Usuario{usuarioId=null, email=testIt0.19606324356531302@test0.3864251644486595.es, nombreUsuario=test0.5459599125055722, passwd=test0.3213439876055585}, usuario=Usuario{usuarioId=null, email=admin@gmail.com, nombreUsuario=admin, passwd=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918}}
+[DEBUG]	 2024-03-15 13:01:27,159 | Respuesta{op=MODIFICAR_USUARIO, entidad=1, e=null}
+[INFO]	 2024-03-15 13:01:27,159 | Fin de la comunicacion
