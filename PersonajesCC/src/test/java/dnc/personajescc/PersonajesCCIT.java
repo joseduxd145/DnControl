@@ -15,7 +15,11 @@ public class PersonajesCCIT {
     public PersonajesCCIT() {
         //Usuario para poder realizar acciones a traves del servidor
         Usuario u = new Usuario("admin@gmail.com", "admin", "admin");
-        pcc = new PersonajesCC("192.168.1.205", 11037, u);
+        pcc = new PersonajesCC("127.0.0.1", 11037, u);
+    }
+    
+    private Usuario generarUsuarioRandom(){
+        return new Usuario("testIt" + Math.random() + "@test" + Math.random() + ".es", "test" + Math.random(), "test" + Math.random());
     }
 
     /**
@@ -23,9 +27,10 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testInsertarUsuario() throws Exception {
-        Usuario u = new Usuario("", "", "");
         Integer ra;
-        ra = pcc.insertarUsuario(u);
+        ra = pcc.insertarUsuario(generarUsuarioRandom());
+        assertEquals(1, ra);
+        ra = pcc.insertarUsuario(generarUsuarioRandom());
         assertEquals(1, ra);
     }
 
@@ -34,7 +39,7 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testEliminarUsuario() throws Exception {
-        Integer id = 4;
+        Integer id = 6;
         Integer ra;
         ra = pcc.eliminarUsuario(id);
         assertEquals(1, ra);
@@ -45,10 +50,9 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testModificarUsuario() throws Exception {
-        Integer id = 3;
-        Usuario u = new Usuario("", "", "");
+        Integer id = 7;
         Integer ra;
-        ra = pcc.modificarUsuario(id, u);
+        ra = pcc.modificarUsuario(id, generarUsuarioRandom());
         assertEquals(1, ra);
     }
 
@@ -60,6 +64,7 @@ public class PersonajesCCIT {
         ArrayList<Usuario> expected = new ArrayList<>();
         ArrayList<Usuario> actual = pcc.leerUsuario();
         assertNotEquals(expected, actual);
+        assertNotEquals(0, actual.size());
     }
 
     /**
@@ -67,9 +72,10 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testLeerUsuario_int() throws Exception {
-        Integer id = 2;
+        Integer id = 8;
         Usuario expected = new Usuario();
         Usuario actual = pcc.leerUsuario(id);
+        assertNotEquals(expected, actual);
     }
 
     /**
