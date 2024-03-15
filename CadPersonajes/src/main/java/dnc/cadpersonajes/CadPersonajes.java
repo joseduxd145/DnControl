@@ -1,7 +1,6 @@
 package dnc.cadpersonajes;
 
 import java.math.BigDecimal;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -45,12 +44,12 @@ public class CadPersonajes {
      * Constructor del cad para especificar ip tipo BD y usuario y contraseña
      *
      * @param ip     Cadena que contiene la direccion IP del servidor con la BD
-     * @param tipo   Tipo de conexion de la BD Puede ser: xe test
+     * @param db   Tipo de conexion de la BD Puede ser: xe test
      * @param user   Usuario al que conectarse en la base de datos
      * @param passwd Contraseña del usuario
      */
-    public CadPersonajes(String ip, String tipo, String user, String passwd) {
-        bd = "jdbc:oracle:thin:@" + ip + ":1521:" + tipo;
+    public CadPersonajes(String ip, String db, String user, String passwd) {
+        bd = "jdbc:mariadb://" + ip + "/" + db;
 
         this.user = user;
         this.passwd = passwd;
@@ -69,7 +68,8 @@ public class CadPersonajes {
     public static void cargarDriver() throws ExcepcionPersonajes {
         try {
             //Cargar los drivers de la BD
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            //Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.mariadb.jdbc.Driver");
         }
         catch (ClassNotFoundException ex) {
             ExcepcionPersonajes e = new ExcepcionPersonajes();
@@ -105,8 +105,8 @@ public class CadPersonajes {
      */
     public int insertarUsuario(Usuario u) throws ExcepcionPersonajes {
         int ra = 0;
-        sql = "INSERT INTO USUARIO(USUARIO_ID, EMAIL, NOMBRE_USUARIO, PASSWD) "
-                + "VALUES(SEC_USUARIO.NEXTVAL, ?, ?, ?)";
+        sql = "INSERT INTO USUARIO(EMAIL, NOMBRE_USUARIO, PASSWD) "
+                + "VALUES(?, ?, ?)";
         PreparedStatement sp;
 
         try {
@@ -364,29 +364,32 @@ public class CadPersonajes {
      */
     public int insertarPersonaje(Personaje p) throws ExcepcionPersonajes {
         int ra = 0;
-        sql = "CALL INSERTAR_PERSONAJE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        CallableStatement cl;
+        sql = "INSERT INTO PERSONAJE(USUARIO_ID, NOMBRE_PERSONAJE, APELLIDO, "
+                + "TRANSFONDO, FUERZA, DESTREZA, CONSTITUCION, INTELIGENCIA, "
+                + "SABIDURIA, CARISMA, JUGADOR) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps;
 
         try {
             conectarBd();
 
-            cl = con.prepareCall(sql);
+            ps = con.prepareStatement(sql);
 
             //Modificar los campos de la sentencia preparada
-            cl.setObject(1, p.getUsuarioId().getUsuarioId(), Types.INTEGER);
-            cl.setString(2, p.getNombrePersonaje());
-            cl.setString(3, p.getApellido());
-            cl.setString(4, p.getTransfondo());
-            cl.setObject(5, p.getFuerza(), Types.INTEGER);
-            cl.setObject(6, p.getDestreza(), Types.INTEGER);
-            cl.setObject(7, p.getConstitucion(), Types.INTEGER);
-            cl.setObject(8, p.getInteligencia(), Types.INTEGER);
-            cl.setObject(9, p.getSabiduria(), Types.INTEGER);
-            cl.setObject(10, p.getCarisma(), Types.INTEGER);
-            cl.setString(11, String.valueOf((p.getJugador().toLowerCase()).charAt(0)));
+            ps.setObject(1, p.getUsuarioId().getUsuarioId(), Types.INTEGER);
+            ps.setString(2, p.getNombrePersonaje());
+            ps.setString(3, p.getApellido());
+            ps.setString(4, p.getTransfondo());
+            ps.setObject(5, p.getFuerza(), Types.INTEGER);
+            ps.setObject(6, p.getDestreza(), Types.INTEGER);
+            ps.setObject(7, p.getConstitucion(), Types.INTEGER);
+            ps.setObject(8, p.getInteligencia(), Types.INTEGER);
+            ps.setObject(9, p.getSabiduria(), Types.INTEGER);
+            ps.setObject(10, p.getCarisma(), Types.INTEGER);
+            ps.setString(11, String.valueOf((p.getJugador().toLowerCase()).charAt(0)));
 
-            ra = cl.executeUpdate();
-            cl.close();
+            ra = ps.executeUpdate();
+            ps.close();
 
             con.close();
         }
@@ -695,8 +698,8 @@ public class CadPersonajes {
      */
     public int insertarObjeto(Objeto o) throws ExcepcionPersonajes {
         int ra = 0;
-        sql = "INSERT INTO OBJETO(OBJETO_ID, PERSONAJE_ID, NOMBRE_OBJETO, DESCRIPCION, VALOR) "
-                + "VALUES(SEC_OBJETO.NEXTVAL, ?, ?, ?, ?)";
+        sql = "INSERT INTO OBJETO(PERSONAJE_ID, NOMBRE_OBJETO, DESCRIPCION, VALOR) "
+                + "VALUES(?, ?, ?, ?)";
         PreparedStatement sp;
 
         try {
@@ -1015,9 +1018,9 @@ public class CadPersonajes {
      */
     public int insertarHabilidad(Habilidad h) throws ExcepcionPersonajes {
         int ra = 0;
-        sql = "INSERT INTO HABILIDAD(HABILIDAD_ID, NUM_DADO_ID, NOMBRE_HABILIDAD, "
+        sql = "INSERT INTO HABILIDAD(NUM_DADO_ID, NOMBRE_HABILIDAD, "
                 + "DESCRIPCION, CANTIDAD_DADO) VALUES "
-                + "(SEC_HABILIDAD.NEXTVAL, ?, ?, ?, ?)";
+                + "(?, ?, ?, ?)";
         PreparedStatement ps;
 
         try {
@@ -1279,8 +1282,8 @@ public class CadPersonajes {
      */
     public int insertarSelNumDado(SelNumDado snd) throws ExcepcionPersonajes {
         int ra = 0;
-        sql = "INSERT INTO SEL_NUM_DADO(NUM_DADO_ID, NUM_DADO) "
-                + "VALUES(SEC_SEL_NUM_DADO.NEXTVAL, ?)";
+        sql = "INSERT INTO SEL_NUM_DADO(NUM_DADO) "
+                + "VALUES(?)";
         PreparedStatement ps;
         try {
             conectarBd();
