@@ -44,6 +44,17 @@ public class manejadorPeticiones implements Runnable {
             r.setOp(p.getOp());
             oos = new ObjectOutputStream(clt.getOutputStream());
 
+            if (p.getOp() == Operaciones.VALIDAR_CONEXION) {
+                r.setEntidad(true);
+                log.debug(r);
+                oos.writeObject(r);
+                ois.close();
+                oos.close();
+                clt.close();
+                log.info("Fin de la comunicacion");
+                return;
+            }
+
             //Validar el usuario, si no se encuentra enviarle una excepcion
             if (!c.validarUsuario(p.getUsuario())) {
                 r.setE(new ExcepcionPersonajes(
@@ -290,6 +301,10 @@ public class manejadorPeticiones implements Runnable {
             return c.leerSelNumDado();
         }
         return c.leerSelNumDado(p.getArg1());
+    }
+
+    private void validarConexion() throws ExcepcionPersonajes {
+
     }
 
     private String realizarHash(String entrada) {
