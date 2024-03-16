@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import dnc.pojospersonajes.*;
 import dnc.cadpersonajes.CadPersonajes;
+import java.net.Inet4Address;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
