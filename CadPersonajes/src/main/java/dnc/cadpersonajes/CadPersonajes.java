@@ -43,7 +43,7 @@ public class CadPersonajes {
      * Constructor del cad para especificar ip tipo BD y usuario y contraseña
      *
      * @param ip     Cadena que contiene la direccion IP del servidor con la BD
-     * @param db   Tipo de conexion de la BD Puede ser: xe test
+     * @param db     Tipo de conexion de la BD Puede ser: xe test
      * @param user   Usuario al que conectarse en la base de datos
      * @param passwd Contraseña del usuario
      */
@@ -281,7 +281,8 @@ public class CadPersonajes {
                         (Integer) res.getObject("USUARIO_ID"),
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
-                        res.getString("PASSWD"));
+                        res.getString("PASSWD"),
+                        true);
             }
 
             res.close();
@@ -327,7 +328,8 @@ public class CadPersonajes {
                         (Integer) res.getObject("USUARIO_ID"),
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
-                        res.getString("PASSWD"));
+                        res.getString("PASSWD"),
+                        true);
 
                 Usuarios.add(u);
             }
@@ -573,8 +575,8 @@ public class CadPersonajes {
                             (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD")
-                    );
+                            res.getString("PASSWD"),
+                            true);
                 }
                 catch (NullPointerException e) {
                     u = null;
@@ -641,8 +643,8 @@ public class CadPersonajes {
                             (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD")
-                    );
+                            res.getString("PASSWD"),
+                            true);
                 }
                 catch (NullPointerException e) {
                     u = null;
@@ -860,8 +862,8 @@ public class CadPersonajes {
                             (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD")
-                    );
+                            res.getString("PASSWD"),
+                            true);
                 }
                 catch (NullPointerException e) {
                     u = null;
@@ -949,8 +951,8 @@ public class CadPersonajes {
                             (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD")
-                    );
+                            res.getString("PASSWD"),
+                            true);
                 }
                 catch (NullPointerException e) {
                     u = null;
@@ -1668,8 +1670,8 @@ public class CadPersonajes {
                             (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD")
-                    );
+                            res.getString("PASSWD"),
+                            true);
                 }
                 catch (NullPointerException e) {
                     u = null;
@@ -1835,8 +1837,8 @@ public class CadPersonajes {
                             (Integer) res.getObject("USUARIO_ID"),
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD")
-                    );
+                            res.getString("PASSWD"),
+                            true);
                 }
                 catch (NullPointerException e) {
                     u = null;
@@ -1946,7 +1948,8 @@ public class CadPersonajes {
                 try {
                     usuario = new Usuario(res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"));
+                            res.getString("PASSWD"),
+                            true);
                 }
                 catch (NullPointerException e) {
                     usuario = new Usuario();
