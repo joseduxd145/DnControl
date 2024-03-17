@@ -14,12 +14,12 @@ public class PersonajesCCIT {
 
     public PersonajesCCIT() {
         //Usuario para poder realizar acciones a traves del servidor
-        Usuario u = new Usuario("admin@gmail.com", "admin", "admin");
+        Usuario u = new Usuario("admin@gmail.com", "admin", "admin", false);
         pcc = new PersonajesCC("127.0.0.1", 11037, u);
     }
     
     private Usuario generarUsuarioRandom(){
-        return new Usuario("testIt" + Math.random() + "@test" + Math.random() + ".es", "test" + Math.random(), "test" + Math.random());
+        return new Usuario("testIt" + Math.random() + "@test" + Math.random() + ".es", "test" + Math.random(), "test" + Math.random(), false);
     }
 
     /**
