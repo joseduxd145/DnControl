@@ -684,6 +684,122 @@ public class CadPersonajes {
         return Personajes;
     }
 
+    /**
+     * Metodo que devuelve todos los personajes que pertenecen a un USUARIO
+     *
+     * @param u El USUARIO al que deben pertenecer los personajes
+     *
+     * @return Una lista con todos lo personajes jugador de un usuario en
+     *         concreto
+     *
+     * @throws ExcepcionPersonajes Lanza una excepcion cuando alguna constraint
+     *                             de la BD es violada, o cuando se produce otro
+     *                             error
+     */
+    public ArrayList<Personaje> leerPersonajeUsuario(Usuario u) throws ExcepcionPersonajes {
+        ArrayList<Personaje> personajes = new ArrayList<>();
+        sql = "SELECT * FROM PERSONAJE p WHERE p.JUGADOR = 'j' "
+                + "AND u.USUARIO_ID = " + u.getUsuarioId();
+        Statement s;
+        ResultSet res;
+        try {
+            conectarBd();
+            s = con.createStatement();
+            res = s.executeQuery(sql);
+
+            while (res.next()) {
+                Personaje p;
+                p = new Personaje(
+                        (Integer) res.getObject("PERSONAJE_ID"),
+                        u,
+                        res.getString("NOMBRE_PERSONAJE"),
+                        res.getString("APELLIDO"),
+                        res.getString("TRANSFONDO"),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
+                        res.getString("JUGADOR"));
+
+                personajes.add(p);
+            }
+
+            res.close();
+            s.close();
+            con.close();
+        }
+        catch (SQLException ex) {
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+            e.setSentenciaSql(sql);
+
+            throw e;
+        }
+        return personajes;
+    }
+
+    /**
+     * Metodo que lee todos los personajes que se consideran enemigos dado al
+     * campo JUGADOR de la tabla PERSONAJES para determinar que pertenece a un
+     * usuario
+     *
+     * @return Una lista de todos los PERSONAJES que se consideran enemigos
+     *
+     * @throws ExcepcionPersonajes Lanza una excepcion cuando alguna constraint
+     *                             de la BD es violada, o cuando se produce otro
+     *                             error
+     */
+    public ArrayList<Personaje> leerEnemigos() throws ExcepcionPersonajes {
+        ArrayList<Personaje> enemigos = new ArrayList<>();
+        sql = "SELECT * FROM PERSONAJE p "
+                + "LEFT JOIN USUARIO u ON p.USUARIO_ID = u.USUARIO_ID "
+                + "WHERE p.JUGADOR = 'e'";
+        Statement s;
+        ResultSet res;
+        try {
+            conectarBd();
+            s = con.createStatement();
+            res = s.executeQuery(sql);
+
+            while (res.next()) {
+                Personaje p;
+                p = new Personaje(
+                        (Integer) res.getObject("PERSONAJE_ID"),
+                        null,
+                        res.getString("NOMBRE_PERSONAJE"),
+                        res.getString("APELLIDO"),
+                        res.getString("TRANSFONDO"),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
+                        res.getString("JUGADOR"));
+
+                enemigos.add(p);
+            }
+
+            res.close();
+            s.close();
+            con.close();
+        }
+        catch (SQLException ex) {
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+            e.setSentenciaSql(sql);
+
+            throw e;
+        }
+        return enemigos;
+    }
+
     //Metodos de objeto
     /**
      * Metodo para insertar un objeto en la base de datos
