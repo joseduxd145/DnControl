@@ -126,6 +126,12 @@ public class manejadorPeticiones implements Runnable {
         case LEER_PERSONAJE:
             r.setEntidad(leerPersonaje(p));
             break;
+        case LEER_PERSONAJE_JUGADOR:
+            r.setEntidad(leerPersonajeJugador(p));
+            break;
+        case LEER_ENEMIGOS:
+            r.setEntidad(leerEnemigos());
+            break;
         case INSERTAR_OBJETO:
             r.setEntidad(insertarObjeto(p));
             break;
@@ -229,6 +235,14 @@ public class manejadorPeticiones implements Runnable {
             return c.leerPersonaje();
         }
         return c.leerPersonaje(p.getArg1());
+    }
+    
+    private Object leerPersonajeJugador(Peticion p) throws ExcepcionPersonajes {
+        return c.leerPersonajeUsuario(p.getUsuario());
+    }
+    
+    private Object leerEnemigos() throws ExcepcionPersonajes {
+        return c.leerEnemigos();
     }
     
     private Integer insertarObjeto(Peticion p) throws ExcepcionPersonajes {
