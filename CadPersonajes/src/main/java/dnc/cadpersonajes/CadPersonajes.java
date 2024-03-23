@@ -699,7 +699,7 @@ public class CadPersonajes {
     public ArrayList<Personaje> leerPersonajeUsuario(Usuario u) throws ExcepcionPersonajes {
         ArrayList<Personaje> personajes = new ArrayList<>();
         sql = "SELECT * FROM PERSONAJE p WHERE p.JUGADOR = 'j' "
-                + "AND u.USUARIO_ID = " + u.getUsuarioId();
+                + "AND p.USUARIO_ID = " + u.getUsuarioId();
         Statement s;
         ResultSet res;
         try {
