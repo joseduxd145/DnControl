@@ -211,6 +211,16 @@ public class PersonajesCC {
         Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, id, null, usuario);
         return (Personaje) conectar(peticion);
     }
+    
+    public ArrayList<Personaje> leerPersonajeUsuario() throws ExcepcionPersonajes{
+        Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE_JUGADOR, null, null, usuario);
+        return (ArrayList<Personaje>) conectar(peticion);
+    }
+    
+    public ArrayList<Personaje> leerEnemigos() throws ExcepcionPersonajes{
+        Peticion peticion = new Peticion(Operaciones.LEER_ENEMIGOS, null, null, usuario);
+        return (ArrayList<Personaje>) conectar(peticion);
+    }
 
     public Integer insertarObjeto(Objeto o) throws ExcepcionPersonajes {
         Peticion peticion = new Peticion(Operaciones.INSERTAR_OBJETO, null, o, usuario);
