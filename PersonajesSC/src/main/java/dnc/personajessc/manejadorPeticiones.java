@@ -12,36 +12,36 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.log4j.Logger;
 
 public class manejadorPeticiones implements Runnable {
-    
+
     private final Socket clt;
     private CadPersonajes c;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private final Logger log;
     private MessageDigest md;
-    
+
     public manejadorPeticiones(Socket clt, Logger log) {
         this.clt = clt;
         this.log = log;
     }
-    
+
     @Override
     public void run() {
         log.info("Inicio de la comunicacion");
         try {
             md = MessageDigest.getInstance("SHA-256");
-            
+
             c = new CadPersonajes("127.0.0.1", "DNCONTROL", "root", "");
-            
+
             ois = new ObjectInputStream(clt.getInputStream());
             Peticion p = (Peticion) ois.readObject();
-            
+
             if (!p.getUsuario().getHash()) {
                 p.setUsuario(convertirUsuario(p.getUsuario()));
             }
-            
+
             log.debug(p);
-            
+
             Respuesta r = new Respuesta();
             r.setOp(p.getOp());
             oos = new ObjectOutputStream(clt.getOutputStream());
@@ -73,9 +73,9 @@ public class manejadorPeticiones implements Runnable {
                 log.info("Fin de la comunicacion");
                 return;
             }
-            
+
             r = seleccionarOperacion(p, r);
-            
+
             oos.writeObject(r);
             ois.close();
             oos.close();
@@ -98,8 +98,12 @@ public class manejadorPeticiones implements Runnable {
             manejadorNPE(ex);
         }
     }
-    
+
     private Respuesta seleccionarOperacion(Peticion p, Respuesta r) throws ExcepcionPersonajes {
+
+        //Pedir a la base de datos que obtenga el id del usuario en local
+        c.obtenerIdUsuario(p.getUsuario());
+
         //Switch manejador de las operaciones
         switch (p.getOp()) {
         case INSERTAR_USUARIO:
@@ -190,7 +194,7 @@ public class manejadorPeticiones implements Runnable {
         log.debug(r);
         return r;
     }
-    
+
     private Integer insertarUsuario(Peticion p) throws ExcepcionPersonajes {
         //Realizar hash sobre el objeto usuario para evitar problemas
         if (!p.getUsuario().getHash()) {
@@ -198,11 +202,11 @@ public class manejadorPeticiones implements Runnable {
         }
         return c.insertarUsuario((Usuario) p.getEntidad());
     }
-    
+
     private Integer eliminarUsuario(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarUsuario(p.getArg1());
     }
-    
+
     private Integer modificarUsuario(Peticion p) throws ExcepcionPersonajes {
         //Realizar hash sobre el objeto usuario para evitar problemas
         if (!p.getUsuario().getHash()) {
@@ -210,91 +214,91 @@ public class manejadorPeticiones implements Runnable {
         }
         return c.modificarUsuario(p.getArg1(), (Usuario) p.getEntidad());
     }
-    
+
     private Object leerUsuario(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerUsuario();
         }
         return c.leerUsuario(p.getArg1());
     }
-    
+
     private Integer insertarPersonaje(Peticion p) throws ExcepcionPersonajes {
         return c.insertarPersonaje((Personaje) p.getEntidad());
     }
-    
+
     private Integer eliminarPersonaje(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarPersonaje(p.getArg1());
     }
-    
+
     private Integer modificarPersonaje(Peticion p) throws ExcepcionPersonajes {
         return c.modificarPersonaje(p.getArg1(), (Personaje) p.getEntidad());
     }
-    
+
     private Object leerPersonaje(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerPersonaje();
         }
         return c.leerPersonaje(p.getArg1());
     }
-    
+
     private Object leerPersonajeJugador(Peticion p) throws ExcepcionPersonajes {
         return c.leerPersonajeUsuario(p.getUsuario());
     }
-    
+
     private Object leerEnemigos() throws ExcepcionPersonajes {
         return c.leerEnemigos();
     }
-    
+
     private Integer insertarObjeto(Peticion p) throws ExcepcionPersonajes {
         return c.insertarObjeto((Objeto) p.getEntidad());
     }
-    
+
     private Integer eliminarObjeto(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarObjeto(p.getArg1());
     }
-    
+
     private Integer modificarObjeto(Peticion p) throws ExcepcionPersonajes {
         return c.modificarObjeto(p.getArg1(), (Objeto) p.getEntidad());
     }
-    
+
     private Object leerObjeto(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerObjeto();
         }
         return c.leerObjeto(p.getArg1());
     }
-    
+
     private Integer insertarHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.insertarHabilidad((Habilidad) p.getEntidad());
     }
-    
+
     private Integer eliminarHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarHabilidad(p.getArg1());
     }
-    
+
     private Integer modificarHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.modificarHabilidad(p.getArg1(), (Habilidad) p.getEntidad());
     }
-    
+
     private Object leerHabilidad(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerHabilidad();
         }
         return c.leerHabilidad(p.getArg1());
     }
-    
+
     private Integer insertarPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.insertarPersonajeHabilidad((PersonajeHabilidad) p.getEntidad());
     }
-    
+
     private Integer eliminarPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarPersonajeHabilidad(p.getArg1(), p.getArg2());
     }
-    
+
     private Integer modificarPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         return c.modificarPersonajeHabilidad(p.getArg1(), p.getArg2(), (PersonajeHabilidad) p.getEntidad());
     }
-    
+
     private Object leerPersonajeHabilidad(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null && p.getArg2() == null) {
             return c.leerPersonajeHabilidad();
@@ -304,30 +308,30 @@ public class manejadorPeticiones implements Runnable {
         }
         return c.leerPersonajeHabilidad(p.getArg1(), p.getArg2());
     }
-    
+
     private Integer insertarSelNumDado(Peticion p) throws ExcepcionPersonajes {
         return c.insertarSelNumDado((SelNumDado) p.getEntidad());
     }
-    
+
     private Integer eliminarSelNumDado(Peticion p) throws ExcepcionPersonajes {
         return c.eliminarSelNumDado(p.getArg1());
     }
-    
+
     private Integer modificarSelNumDado(Peticion p) throws ExcepcionPersonajes {
         return c.modificarSelNumDado(p.getArg1(), (SelNumDado) p.getEntidad());
     }
-    
+
     private Object leerSelNumDado(Peticion p) throws ExcepcionPersonajes {
         if (p.getArg1() == null) {
             return c.leerSelNumDado();
         }
         return c.leerSelNumDado(p.getArg1());
     }
-    
+
     private void validarConexion() throws ExcepcionPersonajes {
-        
+
     }
-    
+
     private String realizarHash(String entrada) {
         String respuesta = "";
         String aux;
@@ -341,7 +345,7 @@ public class manejadorPeticiones implements Runnable {
         }
         return respuesta;
     }
-    
+
     private Usuario convertirUsuario(Usuario u) {
         u.setPasswd(realizarHash(u.getPasswd()));
         u.setHash(true);
@@ -371,7 +375,7 @@ public class manejadorPeticiones implements Runnable {
                 ex.getMessage(),
                 null,
                 null);
-        
+
         if (oos != null) {
             Respuesta rError = new Respuesta();
             rError.setE(e);
@@ -394,7 +398,7 @@ public class manejadorPeticiones implements Runnable {
      */
     private void manejadorEP(ExcepcionPersonajes ex) {
         log.error(ex);
-        
+
         if (oos != null) {
             Respuesta rError = new Respuesta();
             rError.setE(ex);
@@ -409,14 +413,14 @@ public class manejadorPeticiones implements Runnable {
             }
         }
     }
-    
+
     private void manejardorNSAE(NoSuchAlgorithmException ex) {
         log.error(ex);
         try {
             ois = new ObjectInputStream(clt.getInputStream());
             Peticion p = (Peticion) ois.readObject();
             log.debug(p);
-            
+
             Respuesta r = new Respuesta();
             r.setOp(p.getOp());
             r.setE(new ExcepcionPersonajes(
@@ -425,7 +429,7 @@ public class manejadorPeticiones implements Runnable {
                     null,
                     null));
             oos = new ObjectOutputStream(clt.getOutputStream());
-            
+
             oos.writeObject(r);
             ois.close();
             oos.close();
@@ -438,10 +442,10 @@ public class manejadorPeticiones implements Runnable {
             manejadorCNFE(ex1);
         }
     }
-    
+
     private void manejadorNPE(NullPointerException ex) {
         log.error(ex);
-        
+
         if (oos != null) {
             Respuesta rError = new Respuesta();
             rError.setE(new ExcepcionPersonajes(
