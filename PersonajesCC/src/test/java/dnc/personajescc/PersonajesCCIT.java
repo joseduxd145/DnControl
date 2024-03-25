@@ -3,6 +3,9 @@ package dnc.personajescc;
 import dnc.pojospersonajes.*;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -17,8 +20,8 @@ public class PersonajesCCIT {
         Usuario u = new Usuario("admin@gmail.com", "admin", "admin", false);
         pcc = new PersonajesCC("127.0.0.1", 11037, u);
     }
-    
-    private Usuario generarUsuarioRandom(){
+
+    private Usuario generarUsuarioRandom() {
         return new Usuario("testIt" + Math.random() + "@test" + Math.random() + ".es", "test" + Math.random(), "test" + Math.random(), false);
     }
 
@@ -258,5 +261,29 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testLeerSelNumDado_Integer() throws Exception {
+    }
+
+    /**
+     * Test of leerPersonajeUsuario method, of class PersonajesCC.
+     */
+    @Test
+    public void testLeerPersonajeUsuario() throws Exception {
+    }
+
+    /**
+     * Test of leerEnemigos method, of class PersonajesCC.
+     */
+    @Test
+    public void testLeerEnemigos() throws Exception {
+        ArrayList<Personaje> personajes;
+        personajes = pcc.leerPersonajeUsuario();
+        System.out.println(personajes);
+    }
+
+    /**
+     * Test of validarConexion method, of class PersonajesCC.
+     */
+    @Test
+    public void testValidarConexion() throws Exception {
     }
 }

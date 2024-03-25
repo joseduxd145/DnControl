@@ -23,6 +23,8 @@ public class PersonajesCC {
     private final int puerto;
 
     private final Usuario usuario;
+    
+    private final int timeOut;
 
     /**
      * Constructor del cliente, que asigna los parametros de conexion con el
@@ -37,6 +39,14 @@ public class PersonajesCC {
         this.ipServidor = ipServidor;
         this.puerto = puerto;
         this.usuario = usuario;
+        this.timeOut = 10000;
+    }
+
+    public PersonajesCC(String ipServidor, int puerto, Usuario usuario, int timeOut) {
+        this.ipServidor = ipServidor;
+        this.puerto = puerto;
+        this.usuario = usuario;
+        this.timeOut = timeOut;
     }
 
     /**
@@ -55,7 +65,7 @@ public class PersonajesCC {
         try {
             //Conectar al servidor
             con = new Socket(ipServidor, puerto);
-            con.setSoTimeout(10000);
+            con.setSoTimeout(timeOut);
 
             //Generar el output stream y enviar la peticion al servidor
             ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
