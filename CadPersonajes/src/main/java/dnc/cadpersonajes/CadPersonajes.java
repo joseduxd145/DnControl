@@ -2045,7 +2045,7 @@ public class CadPersonajes {
     public boolean validarUsuario(Usuario u) throws ExcepcionPersonajes {
         boolean validacion = false;
         sql = "SELECT EMAIL, NOMBRE_USUARIO, PASSWD FROM USUARIO "
-                + "WHERE EMAIL LIKE ? AND NOMBRE_USUARIO LIKE ? AND PASSWD LIKE ?";
+                + "WHERE EMAIL LIKE ? AND NOMBRE_USUARIO LIKE ? AND PASSWD = ?";
         PreparedStatement ps;
         ResultSet res;
         try {
@@ -2088,5 +2088,46 @@ public class CadPersonajes {
             throw e;
         }
         return validacion;
+    }
+
+    public boolean obtenerIdUsuario(Usuario u) throws ExcepcionPersonajes {
+        if (!validarUsuario(u)) {
+            return false;
+        }
+
+        boolean resultado = false;
+        sql = "SELECT USUARIO_ID FROM USUARIO "
+                + "WHERE EMAIL = ? AND NOMBRE_USUARIO = ? AND PASSWD = ?";
+        PreparedStatement ps;
+        ResultSet res;
+        try {
+            conectarBd();
+            ps = con.prepareStatement(sql);
+            
+            ps.setString(1, u.getEmail());
+            ps.setString(2, u.getNombreUsuario());
+            ps.setString(3, u.getPasswd());
+            
+            res = ps.executeQuery();
+
+            if (res.next()) {
+                try {
+                    u.setUsuarioId((Integer) res.getObject("USUARIO_ID"));
+                    resultado = true;
+                }
+                catch (NullPointerException e) {
+                    u.setUsuarioId(null);
+                    resultado = false;
+                }
+            }
+
+            res.close();
+            ps.close();
+            con.close();
+        }
+        catch (SQLException ex) {
+
+        }
+        return resultado;
     }
 }
