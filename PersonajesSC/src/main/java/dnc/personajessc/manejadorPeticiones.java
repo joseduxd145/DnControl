@@ -13,11 +13,27 @@ import org.apache.log4j.Logger;
 
 public class manejadorPeticiones implements Runnable {
 
+    /**
+     * Socket con la conexion del cliente a tratar
+     */
     private final Socket clt;
+    /**
+     * Componente de acceso a datos, se inicializa en el hilo para no dar
+     * problemas de concurrencia
+     */
     private CadPersonajes c;
+    /**
+     * Streams de objetos para las comunicaciones
+     */
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
+    /**
+     * Logger pasado desde el hilo principal
+     */
     private final Logger log;
+    /**
+     * Objeto para realizar hashes
+     */
     private MessageDigest md;
 
     public manejadorPeticiones(Socket clt, Logger log) {
@@ -36,6 +52,7 @@ public class manejadorPeticiones implements Runnable {
             ois = new ObjectInputStream(clt.getInputStream());
             Peticion p = (Peticion) ois.readObject();
 
+            //Realizar el hash del usuario cliente para su posterior tratamiento en la bd
             if (!p.getUsuario().getHash()) {
                 p.setUsuario(convertirUsuario(p.getUsuario()));
             }
@@ -74,8 +91,9 @@ public class manejadorPeticiones implements Runnable {
                 return;
             }
 
-            r = seleccionarOperacion(p, r);
+            seleccionarOperacion(p, r);
 
+            //Enviar la respuesta y finalizar
             oos.writeObject(r);
             ois.close();
             oos.close();
@@ -99,7 +117,15 @@ public class manejadorPeticiones implements Runnable {
         }
     }
 
-    private Respuesta seleccionarOperacion(Peticion p, Respuesta r) throws ExcepcionPersonajes {
+    /**
+     * Metodo que trata cada una de las operaciones posibles
+     *
+     * @param p La peticion enviada por el usuario
+     * @param r La resupesta a rellenar con datos
+     *
+     * @throws ExcepcionPersonajes Devuelve una excepcion recivida desde el cad
+     */
+    private void seleccionarOperacion(Peticion p, Respuesta r) throws ExcepcionPersonajes {
 
         //Pedir a la base de datos que obtenga el id del usuario en local
         c.obtenerIdUsuario(p.getUsuario());
@@ -192,7 +218,6 @@ public class manejadorPeticiones implements Runnable {
             break;
         }
         log.debug(r);
-        return r;
     }
 
     private Integer insertarUsuario(Peticion p) throws ExcepcionPersonajes {
