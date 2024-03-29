@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  srv:
+    build: .
+    image: dncontrol
+    container_name: dncontrol
+    expose:
+      - "11037:11037"
+    networks:
+      - backend
+  bd:
+    image: mariadb
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWD: root
+      MYSQL_USER: dnc
+      MYSQL_PASSWORD: dam205
+      MYSQL_DATABASE: dncontrol
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+    volumes:
+     - db_volume: /var/lib/mysql
+networks:
+  backend:
+    driver: bridge
+volumes:
+  db_volume:
