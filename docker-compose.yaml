@@ -1,13 +1,11 @@
 version: '3.7'
 services:
-  srv:
+  dncsrv:
     build: .
     image: dncontrolsrv
     container_name: dncsrv
-    expose:
+    ports:
       - "11037:11037"
-    networks:
-      - backend
   bd:
     image: mariadb
     container_name: mariadb
@@ -18,12 +16,7 @@ services:
       MYSQL_PASSWORD: dam205
     ports:
       - "3306:3306"
-    networks:
-      - backend
     volumes:
      - db_volume:/var/lib/mysql
-networks:
-  backend:
-    driver: bridge
 volumes:
   db_volume:
