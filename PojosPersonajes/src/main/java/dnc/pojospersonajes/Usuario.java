@@ -13,6 +13,9 @@ public class Usuario implements Serializable {
     private Boolean dm;
     private Boolean hash;
 
+    public Usuario() {
+    }
+
     public Usuario(Integer usuarioId, String email, String nombreUsuario, String passwd, Boolean dm, Boolean hash) {
         this.usuarioId = usuarioId;
         this.email = email;
