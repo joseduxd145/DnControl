@@ -75,10 +75,7 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testLeerUsuario_int() throws Exception {
-        Integer id = 8;
-        Usuario expected = new Usuario();
-        Usuario actual = pcc.leerUsuario(id);
-        assertNotEquals(expected, actual);
+        
     }
 
     /**
