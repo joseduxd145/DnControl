@@ -10,36 +10,31 @@ public class Usuario implements Serializable {
     private String email;
     private String nombreUsuario;
     private String passwd;
+    private Boolean dm;
     private Boolean hash;
 
-    public Usuario() {
-        this.usuarioId = null;
-        this.email = null;
-        this.nombreUsuario = null;
-        this.passwd = null;
-        this.hash = false;
-    }
-
-    public Usuario(Integer usuarioId, String email, String nombreUsuario, String passwd, Boolean hash) {
+    public Usuario(Integer usuarioId, String email, String nombreUsuario, String passwd, Boolean dm, Boolean hash) {
         this.usuarioId = usuarioId;
         this.email = email;
         this.nombreUsuario = nombreUsuario;
         this.passwd = passwd;
+        this.dm = dm;
         this.hash = hash;
     }
 
-    public Usuario(Integer usuarioId) {
-        this.usuarioId = usuarioId;
-        this.email = null;
-        this.nombreUsuario = null;
-        this.passwd = null;
-        this.hash = false;
+    public Usuario(String email, String nombreUsuario, String passwd, Boolean dm, Boolean hash) {
+        this.email = email;
+        this.nombreUsuario = nombreUsuario;
+        this.passwd = passwd;
+        this.dm = dm;
+        this.hash = hash;
     }
 
     public Usuario(String email, String nombreUsuario, String passwd, Boolean hash) {
         this.email = email;
         this.nombreUsuario = nombreUsuario;
         this.passwd = passwd;
+        this.dm = false;
         this.hash = hash;
     }
 
@@ -75,6 +70,14 @@ public class Usuario implements Serializable {
         this.passwd = passwd;
     }
 
+    public Boolean getDm() {
+        return dm;
+    }
+
+    public void setDm(Boolean dm) {
+        this.dm = dm;
+    }
+
     public Boolean getHash() {
         return hash;
     }
@@ -86,10 +89,11 @@ public class Usuario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.email);
-        hash = 17 * hash + Objects.hashCode(this.nombreUsuario);
-        hash = 17 * hash + Objects.hashCode(this.passwd);
-        hash = 17 * hash + Objects.hashCode(this.hash);
+        hash = 67 * hash + Objects.hashCode(this.email);
+        hash = 67 * hash + Objects.hashCode(this.nombreUsuario);
+        hash = 67 * hash + Objects.hashCode(this.passwd);
+        hash = 67 * hash + Objects.hashCode(this.dm);
+        hash = 67 * hash + Objects.hashCode(this.hash);
         return hash;
     }
 
@@ -114,11 +118,14 @@ public class Usuario implements Serializable {
         if (!Objects.equals(this.passwd, other.passwd)) {
             return false;
         }
+        if (!Objects.equals(this.dm, other.dm)) {
+            return false;
+        }
         return Objects.equals(this.hash, other.hash);
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "email=" + email + ", nombreUsuario=" + nombreUsuario + ", passwd=" + passwd + ", hash=" + hash + '}';
+        return "Usuario{" + "usuarioId=" + usuarioId + ", email=" + email + ", nombreUsuario=" + nombreUsuario + ", passwd=" + passwd + ", dm=" + dm + ", hash=" + hash + '}';
     }
 }
