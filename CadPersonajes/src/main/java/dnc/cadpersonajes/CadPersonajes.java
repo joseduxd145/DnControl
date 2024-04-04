@@ -282,6 +282,7 @@ public class CadPersonajes {
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
                         res.getString("PASSWD"),
+                        Boolean.valueOf(res.getString("DM")),
                         true);
             }
 
@@ -329,6 +330,7 @@ public class CadPersonajes {
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
                         res.getString("PASSWD"),
+                        Boolean.valueOf(res.getString("DM")),
                         true);
 
                 Usuarios.add(u);
@@ -576,6 +578,7 @@ public class CadPersonajes {
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
                             true);
                 }
                 catch (NullPointerException e) {
@@ -644,6 +647,7 @@ public class CadPersonajes {
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
                             true);
                 }
                 catch (NullPointerException e) {
@@ -979,6 +983,7 @@ public class CadPersonajes {
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
                             true);
                 }
                 catch (NullPointerException e) {
@@ -1068,6 +1073,7 @@ public class CadPersonajes {
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
                             true);
                 }
                 catch (NullPointerException e) {
@@ -1787,6 +1793,7 @@ public class CadPersonajes {
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
                             true);
                 }
                 catch (NullPointerException e) {
@@ -1954,6 +1961,7 @@ public class CadPersonajes {
                             res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
                             true);
                 }
                 catch (NullPointerException e) {
@@ -2103,11 +2111,11 @@ public class CadPersonajes {
         try {
             conectarBd();
             ps = con.prepareStatement(sql);
-            
+
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getNombreUsuario());
             ps.setString(3, u.getPasswd());
-            
+
             res = ps.executeQuery();
 
             if (res.next()) {
