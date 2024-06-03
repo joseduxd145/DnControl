@@ -11,7 +11,7 @@ services:
     container_name: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: dncontrol
+      #MYSQL_DATABASE: dncontrol
       MYSQL_USER: dnc
       MYSQL_PASSWORD: dam205
     ports:
