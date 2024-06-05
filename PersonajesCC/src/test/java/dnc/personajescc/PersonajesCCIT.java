@@ -18,7 +18,7 @@ public class PersonajesCCIT {
     public PersonajesCCIT() {
         //Usuario para poder realizar acciones a traves del servidor
         Usuario u = new Usuario("admin@gmail.com", "admin", "admin", false);
-        pcc = new PersonajesCC("127.0.0.1", 11037, u);
+        pcc = new PersonajesCC("192.168.1.43", 11037, u);
     }
 
     private Usuario generarUsuarioRandom() {
