@@ -8,7 +8,7 @@ services:
       - "11037:11037"
   bd:
     image: mariadb
-    container_name: mariadb
+    container_name: bd
     environment:
       MYSQL_ROOT_PASSWORD: root
       #MYSQL_DATABASE: dncontrol
