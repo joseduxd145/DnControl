@@ -10,7 +10,7 @@ services:
     image: mariadb
     container_name: bd
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: admin
       #MYSQL_DATABASE: dncontrol
       MYSQL_USER: dnc
       MYSQL_PASSWORD: dam205
