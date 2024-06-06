@@ -5,3 +5,8 @@
 /PojosPersonajes/target/
 /PersonajesSC/target/
 /PersonajesCC/target/
+
+/CadPersonajes/src/test/
+/PersonajesCC/src/test/
+/PersonajesSC/src/test/
+/PojosPersonajes/src/test/
