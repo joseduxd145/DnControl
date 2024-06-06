@@ -347,7 +347,7 @@ public class manejadorPeticiones implements Runnable {
     }
 
     private Object leerSelNumDado(Peticion p) throws ExcepcionPersonajes {
-        if (p.getArg1() == null) {
+        if (p.getArg1() == null && p.getArg2() == null) {
             return c.leerSelNumDado();
         }
         return c.leerSelNumDado(p.getArg1());

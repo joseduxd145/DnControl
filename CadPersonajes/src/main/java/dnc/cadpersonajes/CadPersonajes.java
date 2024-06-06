@@ -1580,7 +1580,7 @@ public class CadPersonajes {
             s = con.createStatement();
             res = s.executeQuery(sql);
 
-            if (res.next()) {
+            while(res.next()) {
                 SelNumDado snd;
                 snd = new SelNumDado(
                         (Integer) res.getObject("NUM_DADO_ID"),

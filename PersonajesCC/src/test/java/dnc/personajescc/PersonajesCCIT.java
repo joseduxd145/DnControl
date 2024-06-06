@@ -18,7 +18,7 @@ public class PersonajesCCIT {
     public PersonajesCCIT() {
         //Usuario para poder realizar acciones a traves del servidor
         Usuario u = new Usuario("admin@gmail.com", "admin", "admin", false);
-        pcc = new PersonajesCC("192.168.1.43", 11037, u);
+        pcc = new PersonajesCC("192.168.1.41", 11037, u);
     }
 
     private Usuario generarUsuarioRandom() {
@@ -251,6 +251,8 @@ public class PersonajesCCIT {
      */
     @org.junit.jupiter.api.Test
     public void testLeerSelNumDado_0args() throws Exception {
+        ArrayList<SelNumDado> lista =pcc.leerSelNumDado();
+        System.out.println(lista);
     }
 
     /**
