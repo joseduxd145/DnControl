@@ -1347,8 +1347,8 @@ public class CadPersonajes {
      */
     public Habilidad leerHabilidad(Integer id) throws ExcepcionPersonajes {
         Habilidad h = new Habilidad();
-        sql = "SELECT * FROM HABILIDAD h"
-                + "LEFT JOIN SEL_NUM_DADO s ON h.NUM_DADO_ID = s.NUM_DADO_ID"
+        sql = "SELECT * FROM HABILIDAD h "
+                + "LEFT JOIN SEL_NUM_DADO s ON h.NUM_DADO_ID = s.NUM_DADO_ID "
                 + "WHERE h.HABILIDAD_ID = " + id;
         Statement s;
         ResultSet res;
