@@ -1127,6 +1127,86 @@ public class CadPersonajes {
         return o;
     }
 
+    public ArrayList<Objeto> leerObjetoPersonaje(Integer id) throws ExcepcionPersonajes {
+        ArrayList<Objeto> objetos = new ArrayList<>();
+        sql = "SELECT * FROM OBJETO o "
+                + "LEFT JOIN PERSONAJE p  ON o.PERSONAJE_ID = p.PERSONAJE_ID "
+                + "LEFT JOIN USUARIO u ON p.USUARIO_ID = u.USUARIO_ID "
+                + "WHERE o.PERSONAJE_ID = " + id;
+        Statement s;
+        ResultSet res;
+        try {
+            conectarBd();
+
+            s = con.createStatement();
+            res = s.executeQuery(sql);
+
+            while (res.next()) {
+                Usuario u;
+
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
+
+                Personaje p;
+
+                try {
+                    p = new Personaje(
+                            (Integer) res.getObject("PERSONAJE_ID"),
+                            u,
+                            res.getString("NOMBRE_PERSONAJE"),
+                            res.getString("APELLIDO"),
+                            res.getString("TRANSFONDO"),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
+                            res.getString("JUGADOR"));
+                }
+                catch (NullPointerException e) {
+                    p = null;
+                }
+
+                Objeto o;
+
+                o = new Objeto(
+                        (Integer) res.getObject("OBJETO_ID"),
+                        p,
+                        res.getString("NOMBRE_OBJETO"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("VALOR"));
+
+                objetos.add(o);
+            }
+            res.close();
+            s.close();
+            con.close();
+        }
+        catch (SQLException ex) {
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+            e.setSentenciaSql(sql);
+
+            throw e;
+        }
+
+        return objetos;
+    }
+
     /**
      * Metodo para insertar una habilidad
      *
@@ -1580,7 +1660,7 @@ public class CadPersonajes {
             s = con.createStatement();
             res = s.executeQuery(sql);
 
-            while(res.next()) {
+            while (res.next()) {
                 SelNumDado snd;
                 snd = new SelNumDado(
                         (Integer) res.getObject("NUM_DADO_ID"),

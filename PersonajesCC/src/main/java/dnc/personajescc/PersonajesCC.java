@@ -23,7 +23,7 @@ public class PersonajesCC {
     private final int puerto;
 
     private final Usuario usuario;
-    
+
     private final int timeOut;
 
     /**
@@ -221,13 +221,13 @@ public class PersonajesCC {
         Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE, id, null, usuario);
         return (Personaje) conectar(peticion);
     }
-    
-    public ArrayList<Personaje> leerPersonajeUsuario() throws ExcepcionPersonajes{
+
+    public ArrayList<Personaje> leerPersonajeUsuario() throws ExcepcionPersonajes {
         Peticion peticion = new Peticion(Operaciones.LEER_PERSONAJE_JUGADOR, null, null, usuario);
         return (ArrayList<Personaje>) conectar(peticion);
     }
-    
-    public ArrayList<Personaje> leerEnemigos() throws ExcepcionPersonajes{
+
+    public ArrayList<Personaje> leerEnemigos() throws ExcepcionPersonajes {
         Peticion peticion = new Peticion(Operaciones.LEER_ENEMIGOS, null, null, usuario);
         return (ArrayList<Personaje>) conectar(peticion);
     }
@@ -255,6 +255,11 @@ public class PersonajesCC {
     public Objeto leerObjeto(Integer id) throws ExcepcionPersonajes {
         Peticion peticion = new Peticion(Operaciones.LEER_OBJETO, id, null, usuario);
         return (Objeto) conectar(peticion);
+    }
+
+    public ArrayList<Objeto> leerObjetoPersonaje(Integer id) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_OBJETO_PERSONAJE, id, null, usuario);
+        return (ArrayList<Objeto>) conectar(peticion);
     }
 
     public Integer insertarHabilidad(Habilidad h) throws ExcepcionPersonajes {

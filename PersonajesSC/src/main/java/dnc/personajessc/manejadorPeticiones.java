@@ -9,6 +9,7 @@ import dnc.cadpersonajes.CadPersonajes;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 public class manejadorPeticiones implements Runnable {
@@ -174,6 +175,9 @@ public class manejadorPeticiones implements Runnable {
         case LEER_OBJETO:
             r.setEntidad(leerObjeto(p));
             break;
+        case LEER_OBJETO_PERSONAJE:
+            r.setEntidad(leerObjetoPersonaje(p));
+            break;
         case INSERTAR_HABILIDAD:
             r.setEntidad(insertarHabilidad(p));
             break;
@@ -291,6 +295,13 @@ public class manejadorPeticiones implements Runnable {
             return c.leerObjeto();
         }
         return c.leerObjeto(p.getArg1());
+    }
+
+    private Object leerObjetoPersonaje(Peticion p) throws ExcepcionPersonajes {
+        if (p.getArg1() != null) {
+            return c.leerObjetoPersonaje(p.getArg1());
+        }
+        return new ArrayList<Objeto>();
     }
 
     private Integer insertarHabilidad(Peticion p) throws ExcepcionPersonajes {
