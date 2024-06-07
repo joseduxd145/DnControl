@@ -13,6 +13,8 @@ public class Habilidad implements Serializable {
     private Integer cantidadDado;
 
     public Habilidad() {
+        this.cantidadDado = 0;
+        this.numDadoId = new SelNumDado(null, 0);
     }
 
     public Habilidad(Integer habilidadId, SelNumDado numDadoId, String nombreHabilidad, String descripcion, Integer cantidadDado) {
