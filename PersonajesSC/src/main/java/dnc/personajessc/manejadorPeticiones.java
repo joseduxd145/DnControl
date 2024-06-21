@@ -364,10 +364,6 @@ public class manejadorPeticiones implements Runnable {
         return c.leerSelNumDado(p.getArg1());
     }
 
-    private void validarConexion() throws ExcepcionPersonajes {
-
-    }
-
     private String realizarHash(String entrada) {
         String respuesta = "";
         String aux;
