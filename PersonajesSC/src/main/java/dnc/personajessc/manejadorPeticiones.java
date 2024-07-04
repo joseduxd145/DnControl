@@ -48,7 +48,7 @@ public class manejadorPeticiones implements Runnable {
         try {
             md = MessageDigest.getInstance("SHA-256");
 
-            c = new CadPersonajes("bd", "DNCONTROL", "root", "root");
+            c = new CadPersonajes("127.0.0.1", "DNCONTROL", "root", "");
 
             ois = new ObjectInputStream(clt.getInputStream());
             Peticion p = (Peticion) ois.readObject();
