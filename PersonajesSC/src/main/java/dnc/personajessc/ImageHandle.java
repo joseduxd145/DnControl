@@ -31,7 +31,6 @@ public class ImageHandle {
 
     public synchronized DncImagen leerImagen(String id) throws ExcepcionPersonajes {
         DncImagen img = new DncImagen(id);
-
         File f = new File(imagenDir, id);
 
         try {
@@ -48,6 +47,7 @@ public class ImageHandle {
 
     public synchronized void escribirImagen(DncImagen img) throws ExcepcionPersonajes {
         File f = new File(imagenDir, img.getId());
+
         try {
             FileUtils.writeByteArrayToFile(f, img.getDatos());
         }
