@@ -277,13 +277,7 @@ public class CadPersonajes {
             s = con.createStatement();
             res = s.executeQuery(sql);
             if (res.next()) {
-                u = new Usuario(
-                        (Integer) res.getObject("USUARIO_ID"),
-                        res.getString("EMAIL"),
-                        res.getString("NOMBRE_USUARIO"),
-                        res.getString("PASSWD"),
-                        Boolean.valueOf(res.getString("DM")),
-                        true);
+                u = generarUsuario(res);
             }
 
             res.close();
@@ -324,16 +318,7 @@ public class CadPersonajes {
 
             res = s.executeQuery(sql);
             while (res.next()) {
-                Usuario u;
-                u = new Usuario(
-                        (Integer) res.getObject("USUARIO_ID"),
-                        res.getString("EMAIL"),
-                        res.getString("NOMBRE_USUARIO"),
-                        res.getString("PASSWD"),
-                        Boolean.valueOf(res.getString("DM")),
-                        true);
-
-                Usuarios.add(u);
+                Usuarios.add(generarUsuario(res));
             }
 
             res.close();
@@ -571,19 +556,7 @@ public class CadPersonajes {
             if (res.next()) {
                 Usuario u;
 
-                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
-                try {
-                    u = new Usuario(
-                            (Integer) res.getObject("USUARIO_ID"),
-                            res.getString("EMAIL"),
-                            res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"),
-                            Boolean.valueOf(res.getString("DM")),
-                            true);
-                }
-                catch (NullPointerException e) {
-                    u = null;
-                }
+                u = generarUsuario(res);
 
                 p = new Personaje(
                         (Integer) res.getObject("PERSONAJE_ID"),
@@ -640,19 +613,7 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
-                try {
-                    u = new Usuario(
-                            (Integer) res.getObject("USUARIO_ID"),
-                            res.getString("EMAIL"),
-                            res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"),
-                            Boolean.valueOf(res.getString("DM")),
-                            true);
-                }
-                catch (NullPointerException e) {
-                    u = null;
-                }
+                u = generarUsuario(res);
 
                 Personaje p;
                 p = new Personaje(
@@ -976,19 +937,7 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
-                try {
-                    u = new Usuario(
-                            (Integer) res.getObject("USUARIO_ID"),
-                            res.getString("EMAIL"),
-                            res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"),
-                            Boolean.valueOf(res.getString("DM")),
-                            true);
-                }
-                catch (NullPointerException e) {
-                    u = null;
-                }
+                u = generarUsuario(res);
 
                 Personaje p;
 
@@ -1066,19 +1015,7 @@ public class CadPersonajes {
             if (res.next()) {
                 Usuario u;
 
-                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
-                try {
-                    u = new Usuario(
-                            (Integer) res.getObject("USUARIO_ID"),
-                            res.getString("EMAIL"),
-                            res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"),
-                            Boolean.valueOf(res.getString("DM")),
-                            true);
-                }
-                catch (NullPointerException e) {
-                    u = null;
-                }
+                u = generarUsuario(res);
 
                 Personaje p;
 
@@ -1144,19 +1081,7 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
-                try {
-                    u = new Usuario(
-                            (Integer) res.getObject("USUARIO_ID"),
-                            res.getString("EMAIL"),
-                            res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"),
-                            Boolean.valueOf(res.getString("DM")),
-                            true);
-                }
-                catch (NullPointerException e) {
-                    u = null;
-                }
+                u = generarUsuario(res);
 
                 Personaje p;
 
@@ -1866,19 +1791,7 @@ public class CadPersonajes {
             if (res.next()) {
                 Usuario u;
 
-                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
-                try {
-                    u = new Usuario(
-                            (Integer) res.getObject("USUARIO_ID"),
-                            res.getString("EMAIL"),
-                            res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"),
-                            Boolean.valueOf(res.getString("DM")),
-                            true);
-                }
-                catch (NullPointerException e) {
-                    u = null;
-                }
+                u = generarUsuario(res);
 
                 Personaje p;
 
@@ -2034,19 +1947,7 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
-                try {
-                    u = new Usuario(
-                            (Integer) res.getObject("USUARIO_ID"),
-                            res.getString("EMAIL"),
-                            res.getString("NOMBRE_USUARIO"),
-                            res.getString("PASSWD"),
-                            Boolean.valueOf(res.getString("DM")),
-                            true);
-                }
-                catch (NullPointerException e) {
-                    u = null;
-                }
+                u = generarUsuario(res);
 
                 Personaje p;
 
@@ -2217,5 +2118,20 @@ public class CadPersonajes {
 
         }
         return resultado;
+    }
+
+    private Usuario generarUsuario(ResultSet res) throws SQLException {
+        try {
+            return new Usuario(
+                    (Integer) res.getObject("USUARIO_ID"),
+                    res.getString("EMAIL"),
+                    res.getString("NOMBRE_USUARIO"),
+                    res.getString("PASSWD"),
+                    Boolean.valueOf(res.getString("DM")),
+                    true);
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
     }
 }
