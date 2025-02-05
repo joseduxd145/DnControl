@@ -1187,23 +1187,12 @@ public class CadPersonajes {
 
             while (res.next()) {
                 SelNumDado snd;
-                try {
-                    snd = new SelNumDado(
-                            (Integer) res.getObject("NUM_DADO_ID"),
-                            (Integer) res.getObject("NUM_DADO"));
-                }
-                catch (NullPointerException e) {
-                    snd = null;
-                }
+
+                snd = generarSND(res);
 
                 Habilidad h;
 
-                h = new Habilidad(
-                        (Integer) res.getObject("HABILIDAD_ID"),
-                        snd,
-                        res.getString("NOMBRE_HABILIDAD"),
-                        res.getString("DESCRIPCION"),
-                        (Integer) res.getObject("CANTIDAD_DADO"));
+                h = generarHabilidad(res, snd);
 
                 habilidades.add(h);
             }
@@ -1249,21 +1238,10 @@ public class CadPersonajes {
 
             if (res.next()) {
                 SelNumDado snd;
-                try {
-                    snd = new SelNumDado(
-                            (Integer) res.getObject("NUM_DADO_ID"),
-                            (Integer) res.getObject("NUM_DADO"));
-                }
-                catch (NullPointerException e) {
-                    snd = null;
-                }
 
-                h = new Habilidad(
-                        (Integer) res.getObject("HABILIDAD_ID"),
-                        snd,
-                        res.getString("NOMBRE_HABILIDAD"),
-                        res.getString("DESCRIPCION"),
-                        (Integer) res.getObject("CANTIDAD_DADO"));
+                snd = generarSND(res);
+
+                h = generarHabilidad(res, snd);
             }
 
             res.close();
@@ -1431,9 +1409,7 @@ public class CadPersonajes {
             res = s.executeQuery(sql);
 
             if (res.next()) {
-                snd = new SelNumDado(
-                        (Integer) res.getObject("NUM_DADO_ID"),
-                        (Integer) res.getObject("NUM_DADO"));
+                snd = generarSND(res);
             }
 
             res.close();
@@ -1472,9 +1448,7 @@ public class CadPersonajes {
 
             while (res.next()) {
                 SelNumDado snd;
-                snd = new SelNumDado(
-                        (Integer) res.getObject("NUM_DADO_ID"),
-                        (Integer) res.getObject("NUM_DADO"));
+                snd = generarSND(res);
                 selNumDado.add(snd);
             }
 
@@ -1772,22 +1746,11 @@ public class CadPersonajes {
 
             while (res.next()) {
                 SelNumDado snd;
-                try {
-                    snd = new SelNumDado(
-                            (Integer) res.getObject("NUM_DADO_ID"),
-                            (Integer) res.getObject("NUM_DADO"));
-                }
-                catch (NullPointerException e) {
-                    snd = null;
-                }
+
+                snd = generarSND(res);
 
                 Habilidad h;
-                h = new Habilidad(
-                        (Integer) res.getObject("HABILIDAD_ID"),
-                        snd,
-                        res.getString("NOMBRE_HABILIDAD"),
-                        res.getString("DESCRIPCION"),
-                        (Integer) res.getObject("CANTIDAD_DADO"));
+                h = generarHabilidad(res, snd);
 
                 habilidades.add(h);
             }
@@ -1839,28 +1802,12 @@ public class CadPersonajes {
                 p = generarPersonaje(res, u);
 
                 SelNumDado snd;
-                try {
-                    snd = new SelNumDado(
-                            (Integer) res.getObject("NUM_DADO_ID"),
-                            (Integer) res.getObject("NUM_DADO"));
-                }
-                catch (NullPointerException e) {
-                    snd = null;
-                }
+
+                snd = generarSND(res);
 
                 Habilidad h;
 
-                try {
-                    h = new Habilidad(
-                            (Integer) res.getObject("HABILIDAD_ID"),
-                            snd,
-                            res.getString("NOMBRE_HABILIDAD"),
-                            res.getString("DESCRIPCION"),
-                            (Integer) res.getObject("CANTIDAD_DADO"));
-                }
-                catch (NullPointerException e) {
-                    h = null;
-                }
+                h = generarHabilidad(res, snd);
 
                 if (p == null || h == null) {
                     continue;
@@ -1947,6 +1894,17 @@ public class CadPersonajes {
         return validacion;
     }
 
+    /**
+     * Metodo que rellena el id del usuario que tenga el resto de sus atributos
+     * almacenados en bd
+     *
+     * @param u El usuario a rellenar
+     *
+     * @return Devuelve true si ha cambiado el usuario, false si el usuario no
+     *         existe
+     *
+     * @throws ExcepcionPersonajes Lanza excepcion en fallo de conexion con bd
+     */
     public boolean obtenerIdUsuario(Usuario u) throws ExcepcionPersonajes {
         if (!validarUsuario(u)) {
             return false;
@@ -1988,6 +1946,16 @@ public class CadPersonajes {
         return resultado;
     }
 
+    /**
+     * Metodo interno para generar un objeto usuario
+     *
+     * @param res El ResultSet obtenido a traves de una Query que recoja los
+     *            valores de Usuario
+     *
+     * @return El objeto construido o null
+     *
+     * @throws SQLException Lanza excepcion si el ResultSet falla
+     */
     private Usuario generarUsuario(ResultSet res) throws SQLException {
         try {
             return new Usuario(
@@ -2032,6 +2000,31 @@ public class CadPersonajes {
                     res.getString("NOMBRE_OBJETO"),
                     res.getString("DESCRIPCION"),
                     (Integer) res.getObject("VALOR"));
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    private Habilidad generarHabilidad(ResultSet res, SelNumDado snd) throws SQLException {
+        try {
+            return new Habilidad(
+                    (Integer) res.getObject("HABILIDAD_ID"),
+                    snd,
+                    res.getString("NOMBRE_HABILIDAD"),
+                    res.getString("DESCRIPCION"),
+                    (Integer) res.getObject("CANTIDAD_DADO"));
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    private SelNumDado generarSND(ResultSet res) throws SQLException {
+        try {
+            return new SelNumDado(
+                    (Integer) res.getObject("NUM_DADO_ID"),
+                    (Integer) res.getObject("NUM_DADO"));
         }
         catch (NullPointerException e) {
             return null;
