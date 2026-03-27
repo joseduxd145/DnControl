@@ -282,7 +282,7 @@ public class CadPersonajes {
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
                         res.getString("PASSWD"),
-                        Boolean.valueOf(res.getString("DM")),
+                        res.getBoolean("DM"),
                         true);
             }
 
@@ -330,7 +330,7 @@ public class CadPersonajes {
                         res.getString("EMAIL"),
                         res.getString("NOMBRE_USUARIO"),
                         res.getString("PASSWD"),
-                        Boolean.valueOf(res.getString("DM")),
+                        res.getBoolean("DM"),
                         true);
 
                 Usuarios.add(u);
@@ -1366,7 +1366,7 @@ public class CadPersonajes {
      */
     public ArrayList<Habilidad> leerHabilidad() throws ExcepcionPersonajes {
         ArrayList<Habilidad> habilidades = new ArrayList<>();
-        sql = "SELECT * FROM HABILIDAD h"
+        sql = "SELECT * FROM HABILIDAD h "
                 + "LEFT JOIN SEL_NUM_DADO s ON h.NUM_DADO_ID = s.NUM_DADO_ID";
         Statement s;
         ResultSet res;
@@ -1427,9 +1427,7 @@ public class CadPersonajes {
      */
     public Habilidad leerHabilidad(Integer id) throws ExcepcionPersonajes {
         Habilidad h = new Habilidad();
-        sql = "SELECT * FROM HABILIDAD h "
-                + "LEFT JOIN SEL_NUM_DADO s ON h.NUM_DADO_ID = s.NUM_DADO_ID "
-                + "WHERE h.HABILIDAD_ID = " + id;
+        sql = "SELECT * FROM HABILIDAD h LEFT JOIN SEL_NUM_DADO s ON h.NUM_DADO_ID = s.NUM_DADO_ID WHERE h.HABILIDAD_ID = " + id;
         Statement s;
         ResultSet res;
         try {
@@ -2132,8 +2130,8 @@ public class CadPersonajes {
      */
     public boolean validarUsuario(Usuario u) throws ExcepcionPersonajes {
         boolean validacion = false;
-        sql = "SELECT EMAIL, NOMBRE_USUARIO, PASSWD FROM USUARIO "
-                + "WHERE EMAIL LIKE ? AND NOMBRE_USUARIO LIKE ? AND PASSWD = ?";
+        sql = "SELECT EMAIL, NOMBRE_USUARIO, PASSWD, DM FROM USUARIO "
+                + "WHERE EMAIL LIKE ? AND NOMBRE_USUARIO LIKE ? AND PASSWD = ? AND DM = ?";
         PreparedStatement ps;
         ResultSet res;
         try {
@@ -2143,6 +2141,7 @@ public class CadPersonajes {
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getNombreUsuario());
             ps.setString(3, u.getPasswd());
+            ps.setBoolean(4, u.getDm());
 
             res = ps.executeQuery();
 
@@ -2153,6 +2152,7 @@ public class CadPersonajes {
                     usuario = new Usuario(res.getString("EMAIL"),
                             res.getString("NOMBRE_USUARIO"),
                             res.getString("PASSWD"),
+                            res.getBoolean("DM"),
                             true);
                 }
                 catch (NullPointerException e) {
@@ -2217,5 +2217,53 @@ public class CadPersonajes {
 
         }
         return resultado;
+    }
+    
+    public Usuario obtenerIdDesdeDatos(Usuario u) throws ExcepcionPersonajes{
+        Usuario uRes = new Usuario(u.getEmail(), u.getNombreUsuario(), u.getPasswd(), u.getHash());
+        
+        sql = "SELECT * FROM USUARIO "
+                + "WHERE EMAIL = ? AND NOMBRE_USUARIO = ? AND PASSWD = ?";
+        
+        PreparedStatement ps;
+        ResultSet res;
+        
+        try{
+            conectarBd();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, u.getEmail());
+            ps.setString(2, u.getNombreUsuario());
+            ps.setString(3, u.getPasswd());
+
+            res = ps.executeQuery();
+
+            if (res.next()) {
+                try {
+                    
+                    uRes.setUsuarioId((Integer) res.getObject("USUARIO_ID"));
+                    uRes.setDm(res.getBoolean("DM"));
+                    
+                    
+                }
+                catch (NullPointerException e) {
+                    uRes = null;
+                }
+            }
+
+            res.close();
+            ps.close();
+            con.close();
+        }
+        catch(SQLException ex){
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error de login, contacte con el administrador");
+            e.setSentenciaSql(sql);
+            
+            throw e;
+        }
+        return uRes;
     }
 }

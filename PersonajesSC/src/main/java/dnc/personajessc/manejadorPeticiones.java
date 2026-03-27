@@ -66,7 +66,7 @@ public class manejadorPeticiones implements Runnable {
 
             //Tratar el caso de validacion de conexion
             if (p.getOp() == Operaciones.VALIDAR_CONEXION) {
-                r.setEntidad(c.validarUsuario(p.getUsuario()));
+                r.setEntidad(c.obtenerIdDesdeDatos(p.getUsuario()));
                 log.debug(r);
                 oos.writeObject(r);
                 ois.close();
@@ -129,7 +129,7 @@ public class manejadorPeticiones implements Runnable {
     private void seleccionarOperacion(Peticion p, Respuesta r) throws ExcepcionPersonajes {
 
         //Pedir a la base de datos que obtenga el id del usuario en local
-        c.obtenerIdUsuario(p.getUsuario());
+        //c.obtenerIdUsuario(p.getUsuario());
 
         //Switch manejador de las operaciones
         switch (p.getOp()) {

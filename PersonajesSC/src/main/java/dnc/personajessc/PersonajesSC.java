@@ -19,7 +19,7 @@ public class PersonajesSC {
         Logger log = LogManager.getLogger("MAINLOG");
 
         final int puertoServidor = 11037;
-        final int numeroHilos = 100;
+        final int numeroHilos = 4;
 
         ExecutorService es = Executors.newFixedThreadPool(numeroHilos);
         log.info("Pool de hilos creada con capacidad maxima de " + numeroHilos + " hilos");

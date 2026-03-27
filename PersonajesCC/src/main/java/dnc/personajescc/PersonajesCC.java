@@ -85,7 +85,6 @@ public class PersonajesCC {
             if (r.getE() != null) {
                 throw r.getE();
             }
-
             //Devolver el resultado
             res = r.getEntidad();
         }
@@ -343,8 +342,8 @@ public class PersonajesCC {
         return (SelNumDado) conectar(peticion);
     }
 
-    public Boolean validarConexion() throws ExcepcionPersonajes {
+    public Usuario validarConexion() throws ExcepcionPersonajes {
         Peticion peticion = new Peticion(Operaciones.VALIDAR_CONEXION, null, null, usuario);
-        return (Boolean) conectar(peticion);
+        return (Usuario) conectar(peticion);
     }
 }
