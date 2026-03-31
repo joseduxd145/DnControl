@@ -342,9 +342,9 @@ public class PersonajesCC {
         return (SelNumDado) conectar(peticion);
     }
     
-    public Objeto leerObjetosLibres() throws ExcepcionPersonajes {
+    public ArrayList<Objeto> leerObjetosLibres() throws ExcepcionPersonajes {
         Peticion peticion = new Peticion(Operaciones.LEER_OBJETOS_LIBRES, null, null, usuario);
-        return (Objeto) conectar(peticion);
+        return (ArrayList<Objeto>) conectar(peticion);
     }
 
     public Usuario validarConexion() throws ExcepcionPersonajes {
