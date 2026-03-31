@@ -211,6 +211,8 @@ public class manejadorPeticiones implements Runnable {
         case MODIFICAR_SEL_NUM_DADO:
             r.setEntidad(modificarSelNumDado(p));
             break;
+        case LEER_OBJETOS_LIBRES:
+            r.setEntidad(leerObjetosLibres(p));
         case LEER_SEL_NUM_DADO:
             r.setEntidad(leerSelNumDado(p));
             break;
@@ -362,6 +364,10 @@ public class manejadorPeticiones implements Runnable {
             return c.leerSelNumDado();
         }
         return c.leerSelNumDado(p.getArg1());
+    }
+    
+    private Object leerObjetosLibres(Peticion p) throws ExcepcionPersonajes {
+        return c.leerObjetosLibres();
     }
 
     private String realizarHash(String entrada) {

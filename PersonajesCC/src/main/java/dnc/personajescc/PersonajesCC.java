@@ -341,6 +341,11 @@ public class PersonajesCC {
         Peticion peticion = new Peticion(Operaciones.LEER_SEL_NUM_DADO, id, null, usuario);
         return (SelNumDado) conectar(peticion);
     }
+    
+    public Objeto leerObjetosLibres() throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.LEER_OBJETOS_LIBRES, null, null, usuario);
+        return (Objeto) conectar(peticion);
+    }
 
     public Usuario validarConexion() throws ExcepcionPersonajes {
         Peticion peticion = new Peticion(Operaciones.VALIDAR_CONEXION, null, null, usuario);

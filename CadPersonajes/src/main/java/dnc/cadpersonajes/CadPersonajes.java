@@ -2114,6 +2114,43 @@ public class CadPersonajes {
 
         return personajesHabilidades;
     }
+    
+    public ArrayList<Objeto> leerObjetosLibres() throws ExcepcionPersonajes {
+        ArrayList<Objeto> objetos = new ArrayList();
+        sql = "SELECT * FROM OBJETO "
+                + "WHERE PERSONAE_ID = NULL";
+        
+        Statement s;
+        ResultSet res;
+        
+        try{
+            conectarBd();
+            s = con.createStatement();
+            res = s.executeQuery(sql);
+            
+            Objeto o;
+
+            while(res.next()){
+                o = new Objeto(
+                        (Integer) res.getObject("OBJETO_ID"),
+                        null,
+                        res.getString("NOMBRE_OBJETO"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("VALOR"));
+                objetos.add(o);
+            }
+        }
+        catch (SQLException ex) {
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error de login, contacte con el administrador");
+            e.setSentenciaSql(sql);
+
+            throw e;
+        }
+        return objetos;
+    }
 
     /**
      * Metodo que valida que un usuario se encuentra dentro de la tabla USUARIO
