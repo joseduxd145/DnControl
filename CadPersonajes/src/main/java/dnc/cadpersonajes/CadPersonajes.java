@@ -2118,7 +2118,7 @@ public class CadPersonajes {
     public ArrayList<Objeto> leerObjetosLibres() throws ExcepcionPersonajes {
         ArrayList<Objeto> objetos = new ArrayList();
         sql = "SELECT * FROM OBJETO "
-                + "WHERE PERSONAJE_ID = NULL";
+                + "WHERE PERSONAJE_ID IS NULL";
         
         Statement s;
         ResultSet res;
