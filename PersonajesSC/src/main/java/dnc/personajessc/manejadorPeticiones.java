@@ -213,6 +213,7 @@ public class manejadorPeticiones implements Runnable {
             break;
         case LEER_OBJETOS_LIBRES:
             r.setEntidad(leerObjetosLibres(p));
+            break;
         case LEER_SEL_NUM_DADO:
             r.setEntidad(leerSelNumDado(p));
             break;
