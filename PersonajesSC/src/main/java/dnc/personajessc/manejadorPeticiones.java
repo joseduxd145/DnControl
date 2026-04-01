@@ -157,6 +157,9 @@ public class manejadorPeticiones implements Runnable {
         case LEER_PERSONAJE:
             r.setEntidad(leerPersonaje(p));
             break;
+        case LEER_PERSONAJE_ID:
+            r.setEntidad(leerPersonajeId(p));
+            break;
         case LEER_PERSONAJE_JUGADOR:
             r.setEntidad(leerPersonajeJugador(p));
             break;
@@ -271,6 +274,10 @@ public class manejadorPeticiones implements Runnable {
             return c.leerPersonaje();
         }
         return c.leerPersonaje(p.getArg1());
+    }
+    
+    private Integer leerPersonajeId(Peticion p) throws ExcepcionPersonajes {
+        return c.leerPersonaje((Personaje)p.getEntidad());
     }
 
     private Object leerPersonajeJugador(Peticion p) throws ExcepcionPersonajes {

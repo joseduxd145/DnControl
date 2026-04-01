@@ -687,6 +687,39 @@ public class CadPersonajes {
         }
         return Personajes;
     }
+    
+    public Integer leerPersonaje(Personaje p) throws ExcepcionPersonajes{
+        Integer id = -1;
+        sql = "SELECT PERSONAJE_ID FROM PERSONAJE WHERE NOMBRE_PERSONAJE LIKE '" + p.getNombrePersonaje() +"'";
+        Statement s;
+        ResultSet res;
+
+        try {
+            conectarBd();
+
+            s = con.createStatement();
+            
+            res = s.executeQuery(sql);
+            if (res.next()) {
+                id = (Integer)res.getObject("PERSONAJE_ID");
+            }
+
+            res.close();
+            s.close();
+            con.close();
+        }
+        catch (SQLException ex) {
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+            e.setSentenciaSql(sql);
+
+            throw e;
+        }
+        
+        return id;
+    }
 
     /**
      * Metodo que devuelve todos los personajes que pertenecen a un USUARIO
