@@ -296,8 +296,8 @@ public class PersonajesCC {
         return (Integer) conectar(peticion);
     }
 
-    public Integer eliminarPersonajeHabilidad(Integer id) throws ExcepcionPersonajes {
-        Peticion peticion = new Peticion(Operaciones.ELIMINAR_PERSONAJE_HABILIDAD, id, null, usuario);
+    public Integer eliminarPersonajeHabilidad(Integer idPersonaje, Integer idHabilidad) throws ExcepcionPersonajes {
+        Peticion peticion = new Peticion(Operaciones.ELIMINAR_PERSONAJE_HABILIDAD, idPersonaje, idHabilidad, null, usuario);
         return (Integer) conectar(peticion);
     }
 
