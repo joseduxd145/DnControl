@@ -74,7 +74,7 @@ public class CadPersonajes {
             ExcepcionPersonajes e = new ExcepcionPersonajes();
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
     }
@@ -132,15 +132,19 @@ public class CadPersonajes {
             switch (e.getCodigoErrorBd()) {
             case 1:     //UNIKE KEY
                 e.setMensajeUsuario("El email o el nombre del usuario ya existe");
+                e.setError(ErrorUsuario.USUARIO_UNIKE);
                 break;
             case 1400:  //NOT NULL
                 e.setMensajeUsuario("El email, Usuario y contraseña son obligatorios");
+                e.setError(ErrorUsuario.USUARIO_NOTNULL);
                 break;
             case 2290:  //CHECK CONSTRAINT
                 e.setMensajeUsuario("El email debe seguir el formato ejemplo@ejempo.ejemplo");
+                e.setError(ErrorUsuario.USUARIO_CHECK);
                 break;
             default:
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
             throw e;
@@ -193,15 +197,19 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 1:     //Unike Key
                 e.setMensajeUsuario("El email o el nombre del usuario ya existe");
+                e.setError(ErrorUsuario.USUARIO_UNIKE);
                 break;
             case 1407:  //Not NULL
                 e.setMensajeUsuario("El email, nombre de usuario y contraseña son obligatorios");
+                e.setError(ErrorUsuario.USUARIO_NOTNULL);
                 break;
             case 2290:  //Check Constraint
                 e.setMensajeUsuario("El email debe seguir el formato ejemplo@ejempo.ejemplo");
+                e.setError(ErrorUsuario.USUARIO_CHECK);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
             }
 
             throw e;
@@ -242,9 +250,11 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 2292:  //Foreign Key
                 e.setMensajeUsuario("No se puede eliminar un usuario que tiene personajes");
+                e.setError(ErrorUsuario.USUARIO_FK);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -296,7 +306,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return u;
@@ -346,7 +356,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return Usuarios;
@@ -404,19 +414,24 @@ public class CadPersonajes {
             switch (e.getCodigoErrorBd()) {
             case 1:     //UNIKE KEY
                 e.setMensajeUsuario("El nombre de personaje debe ser unico");
+                e.setError(ErrorUsuario.PERSONAJE_UNIKE);
                 break;
             case 1400:  //NOT NULL
                 e.setMensajeUsuario("Los campos nombre, transfondo, jugador y los de estadisticas son obligatorios");
+                e.setError(ErrorUsuario.PERSONAJE_NOTNULL);
                 break;
             case 2290:  //CHECK CONSTRAINT
                 //Tambien salta con el esta excepcion con el campo JUGADOR
                 e.setMensajeUsuario("Los valores de las estadisticas deben estar entre 1 y 50. Y el campo jugador solo puede ser J o E");
+                e.setError(ErrorUsuario.PERSONAJE_CHECK);
                 break;
             case 2291:  //FOREIGN KEY
                 e.setMensajeUsuario("El usuario seleccionado no existe");
+                e.setError(ErrorUsuario.PERSONAJE_FK_USUARIO);
                 break;
             default:
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -481,18 +496,23 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 1407:  //Not NULL
                 e.setMensajeUsuario("Los campos son obligatorios excepto del apellido");
+                e.setError(ErrorUsuario.PERSONAJE_NOTNULL);
                 break;
             case 1:     //Unike Key
                 e.setMensajeUsuario("El nombre del personaje debe ser unico");
+                e.setError(ErrorUsuario.PERSONAJE_UNIKE);
                 break;
             case 2290:  //Check Constraint
                 e.setMensajeUsuario("Las estadisticas deben estar entre 1 y 50. Y/o el personaje debe ser j o e");
+                e.setError(ErrorUsuario.PERSONAJE_CHECK);
                 break;
             case 2291:  //Foreign Key
                 e.setMensajeUsuario("El personaje debe pertenecer a un usuario valido");
+                e.setError(ErrorUsuario.PERSONAJE_FK_USUARIO);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -533,9 +553,11 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 2292:  //Foreign Key
                 e.setMensajeUsuario("No se puede eliminar un personaje que tiene objetos o habilidades asignados");
+                e.setError(ErrorUsuario.PERSONAJE_FK);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -610,7 +632,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return p;
@@ -682,15 +704,15 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return Personajes;
     }
-    
-    public Integer leerPersonaje(Personaje p) throws ExcepcionPersonajes{
+
+    public Integer leerPersonaje(Personaje p) throws ExcepcionPersonajes {
         Integer id = -1;
-        sql = "SELECT PERSONAJE_ID FROM PERSONAJE WHERE NOMBRE_PERSONAJE LIKE '" + p.getNombrePersonaje() +"'";
+        sql = "SELECT PERSONAJE_ID FROM PERSONAJE WHERE NOMBRE_PERSONAJE LIKE '" + p.getNombrePersonaje() + "'";
         Statement s;
         ResultSet res;
 
@@ -698,10 +720,10 @@ public class CadPersonajes {
             conectarBd();
 
             s = con.createStatement();
-            
+
             res = s.executeQuery(sql);
             if (res.next()) {
-                id = (Integer)res.getObject("PERSONAJE_ID");
+                id = (Integer) res.getObject("PERSONAJE_ID");
             }
 
             res.close();
@@ -714,10 +736,10 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
-        
+
         return id;
     }
 
@@ -773,7 +795,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return personajes;
@@ -831,7 +853,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return enemigos;
@@ -859,11 +881,11 @@ public class CadPersonajes {
             conectarBd();
 
             sp = con.prepareStatement(sql);
-            
-            if(o.getPersonajeId() == null){
+
+            if (o.getPersonajeId() == null) {
                 sp.setNull(1, Types.INTEGER);
             }
-            else{
+            else {
                 sp.setObject(1, o.getPersonajeId().getPersonajeId(), Types.INTEGER);
             }
             sp.setString(2, o.getNombreObjeto());
@@ -882,12 +904,15 @@ public class CadPersonajes {
             switch (e.getCodigoErrorBd()) {
             case 1400:  //NOT NULL
                 e.setMensajeUsuario("El nombre de objeto, descripcion y valor son obligatorios");
+                e.setError(ErrorUsuario.OBJETO_NOTNULL);
                 break;
             case 2291:  //FOREIGN KEY
                 e.setMensajeUsuario("El personaje no existe");
+                e.setError(ErrorUsuario.OBJETO_FK_PERSONAJE);
                 break;
             default:
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -914,52 +939,48 @@ public class CadPersonajes {
     public int modificarObjeto(Integer id, Objeto o) throws ExcepcionPersonajes {
         int ra = 0;
         /*
-        sql = "UPDATE OBJETO SET PERSONAJE_ID=?, NOMBRE_OBJETO=?, DESCRIPCION=?, "
-                + "VALOR=? WHERE OBJETO_ID=?";
-        */
-        
-        if(o.getPersonajeId().getPersonajeId() == -1){
+         * sql = "UPDATE OBJETO SET PERSONAJE_ID=?, NOMBRE_OBJETO=?,
+         * DESCRIPCION=?, " + "VALOR=? WHERE OBJETO_ID=?";
+         */
+
+        if (o.getPersonajeId().getPersonajeId() == -1) {
             sql = "UPDATE OBJETO SET PERSONAJE_ID=NULL"
-                + ", NOMBRE_OBJETO=" + "'" + o.getNombreObjeto() + "'"
-                + ", DESCRIPCION=" + "'" + o.getDescripcion() + "'"
-                + ", VALOR=" + o.getValor()
-                + " WHERE OBJETO_ID=" + id;
+                    + ", NOMBRE_OBJETO=" + "'" + o.getNombreObjeto() + "'"
+                    + ", DESCRIPCION=" + "'" + o.getDescripcion() + "'"
+                    + ", VALOR=" + o.getValor()
+                    + " WHERE OBJETO_ID=" + id;
         }
-        else{
-        sql = "UPDATE OBJETO SET PERSONAJE_ID=" + o.getPersonajeId().getPersonajeId()
-                + ", NOMBRE_OBJETO=" + "'" + o.getNombreObjeto() + "'"
-                + ", DESCRIPCION=" + "'" + o.getDescripcion() + "'"
-                + ", VALOR=" + o.getValor()
-                + " WHERE OBJETO_ID=" + id;
+        else {
+            sql = "UPDATE OBJETO SET PERSONAJE_ID=" + o.getPersonajeId().getPersonajeId()
+                    + ", NOMBRE_OBJETO=" + "'" + o.getNombreObjeto() + "'"
+                    + ", DESCRIPCION=" + "'" + o.getDescripcion() + "'"
+                    + ", VALOR=" + o.getValor()
+                    + " WHERE OBJETO_ID=" + id;
         }
-        
+
         PreparedStatement ps;
         Statement s;
 
         try {
             conectarBd();
             /*
-            ps = con.prepareStatement(sql);
-            if(o.getPersonajeId().getPersonajeId() == -1) {
-                ps.setNull(1, Types.INTEGER);
-            }
-            else {
-                ps.setObject(1, o.getPersonajeId().getPersonajeId(), Types.INTEGER);
-            }
-            ps.setString(2, o.getNombreObjeto());
-            ps.setString(3, o.getDescripcion());
-            ps.setObject(4, o.getValor(), Types.INTEGER);
-            ps.setObject(5, o.getObjetoId(), Types.INTEGER);
-  
-            ra = ps.executeUpdate();
-            
-            
-            ps.close();
-            */
-            
+             * ps = con.prepareStatement(sql);
+             * if(o.getPersonajeId().getPersonajeId() == -1) { ps.setNull(1,
+             * Types.INTEGER); } else { ps.setObject(1,
+             * o.getPersonajeId().getPersonajeId(), Types.INTEGER); }
+             * ps.setString(2, o.getNombreObjeto()); ps.setString(3,
+             * o.getDescripcion()); ps.setObject(4, o.getValor(),
+             * Types.INTEGER); ps.setObject(5, o.getObjetoId(), Types.INTEGER);
+             *
+             * ra = ps.executeUpdate();
+             *
+             *
+             * ps.close();
+             */
+
             s = con.createStatement();
             ra = s.executeUpdate(sql);
-            
+
             con.close();
         }
         catch (SQLException ex) {
@@ -971,12 +992,15 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 1407:  //Not NULL
                 e.setMensajeUsuario("Los campos nombre de objeto, descripcion y valor son obligatorios");
+                e.setError(ErrorUsuario.OBJETO_NOTNULL);
                 break;
             case 2291:  //Foreign Key
                 e.setMensajeUsuario("El objeto debe pertenecer a un personaje valido");
+                e.setError(ErrorUsuario.OBJETO_FK_PERSONAJE);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -1015,6 +1039,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setSentenciaSql(sql);
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return ra;
@@ -1101,7 +1126,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
@@ -1189,7 +1214,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
@@ -1269,7 +1294,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
@@ -1313,14 +1338,20 @@ public class CadPersonajes {
             e.setSentenciaSql(sql);
 
             switch (e.getCodigoErrorBd()) {
+            case 1:     //UNIKE
+                e.setError(ErrorUsuario.HABILIDAD_UNIKE);
+                break;
             case 1400:  //NOT NULL
                 e.setMensajeUsuario("El nombre de la habilidad, descripcion y cantidad de dados son obligatorios");
+                e.setError(ErrorUsuario.HABILIDAD_NOTNULL);
                 break;
             case 2291:  //FOREIGN KEY
                 e.setMensajeUsuario("El tipo de dado no existe");
+                e.setError(ErrorUsuario.HABILIDAD_FK);
                 break;
             default:
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
             throw e;
@@ -1367,14 +1398,20 @@ public class CadPersonajes {
             e.setSentenciaSql(sql);
 
             switch (ex.getErrorCode()) {
+            case 1:     //UNIKE
+                e.setError(ErrorUsuario.HABILIDAD_UNIKE);
+                break;
             case 1407:  //Not NULL
                 e.setMensajeUsuario("El nombre de la habilidad, descripcion y cantidad de dados son obligatorios");
+                e.setError(ErrorUsuario.HABILIDAD_NOTNULL);
                 break;
             case 2291:  //FOREIGN KEY
                 e.setMensajeUsuario("El tipo de dado no existe");
+                e.setError(ErrorUsuario.HABILIDAD_FK);
                 break;
             default:
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -1414,9 +1451,11 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 2292:  //Foreign Key
                 e.setMensajeUsuario("No se puede eliminar una habilidad que tenga personajes asignados");
+                e.setError(ErrorUsuario.HABILIDAD_FK_PERSONAJE);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -1477,7 +1516,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
@@ -1533,7 +1572,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return h;
@@ -1570,9 +1609,11 @@ public class CadPersonajes {
             switch (e.getCodigoErrorBd()) {
             case 1400:  //NOT NULL
                 e.setMensajeUsuario("El numero del dado es obligatorio");
+                e.setError(ErrorUsuario.SELNUMDADO_NOTNULL);
                 break;
             default:
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -1615,9 +1656,11 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 1407:  //Not NULL
                 e.setMensajeUsuario("El numero del dado es obligatorio");
+                e.setError(ErrorUsuario.SELNUMDADO_NOTNULL);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
             }
 
             throw e;
@@ -1656,9 +1699,11 @@ public class CadPersonajes {
             switch (ex.getErrorCode()) {
             case 2292:  //Foreign Key
                 e.setMensajeUsuario("No se puede eliminar un tipo de dado que tiene habilidades asignadas");
+                e.setError(ErrorUsuario.SELNUMDADO_FK_HABILIDAD);
                 break;
             default:    //Otros errores
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -1703,7 +1748,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
@@ -1745,7 +1790,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
@@ -1783,15 +1828,19 @@ public class CadPersonajes {
             switch (e.getCodigoErrorBd()) {
             case 1:     //UNIQUE KEY
                 e.setMensajeUsuario("La union entre ese personaje y habilidad ya existe");
+                e.setError(ErrorUsuario.PERSONAJE_HABILIDAD_UNIKE);
                 break;
             case 1400:  //NOT NULL
                 e.setMensajeUsuario("El personaje y habilidad son obligatorios");
+                e.setError(ErrorUsuario.PERSONAJE_HABILIDAD_NOTNULL);
                 break;
             case 2291:  //FOREIGN KEY
                 e.setMensajeUsuario("El personaje o habilidad no existe");
+                e.setError(ErrorUsuario.PERSONAJE_HABILIDAD_FK);
                 break;
             default:
                 e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+                e.setError(ErrorUsuario.DEFAULT);
                 break;
             }
 
@@ -1887,6 +1936,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setSentenciaSql(sql);
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
@@ -2070,7 +2120,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return habilidades;
@@ -2177,29 +2227,29 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error general del sistema, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
 
         return personajesHabilidades;
     }
-    
+
     public ArrayList<Objeto> leerObjetosLibres() throws ExcepcionPersonajes {
         ArrayList<Objeto> objetos = new ArrayList();
         sql = "SELECT * FROM OBJETO "
                 + "WHERE PERSONAJE_ID IS NULL";
-        
+
         Statement s;
         ResultSet res;
-        
-        try{
+
+        try {
             conectarBd();
             s = con.createStatement();
             res = s.executeQuery(sql);
-            
+
             Objeto o;
 
-            while(res.next()){
+            while (res.next()) {
                 o = new Objeto(
                         (Integer) res.getObject("OBJETO_ID"),
                         null,
@@ -2215,7 +2265,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error de login, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return objetos;
@@ -2278,7 +2328,7 @@ public class CadPersonajes {
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error de login, contacte con el administrador");
             e.setSentenciaSql(sql);
-
+            e.setError(ErrorUsuario.DEFAULT);
             throw e;
         }
         return validacion;
@@ -2320,21 +2370,26 @@ public class CadPersonajes {
             con.close();
         }
         catch (SQLException ex) {
-
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error de login, contacte con el administrador");
+            e.setSentenciaSql(sql);
+            e.setError(ErrorUsuario.DEFAULT);
         }
         return resultado;
     }
-    
-    public Usuario obtenerIdDesdeDatos(Usuario u) throws ExcepcionPersonajes{
+
+    public Usuario obtenerIdDesdeDatos(Usuario u) throws ExcepcionPersonajes {
         Usuario uRes = new Usuario(u.getEmail(), u.getNombreUsuario(), u.getPasswd(), u.getHash());
-        
+
         sql = "SELECT * FROM USUARIO "
                 + "WHERE EMAIL = ? AND NOMBRE_USUARIO = ? AND PASSWD = ?";
-        
+
         PreparedStatement ps;
         ResultSet res;
-        
-        try{
+
+        try {
             conectarBd();
             ps = con.prepareStatement(sql);
 
@@ -2346,11 +2401,10 @@ public class CadPersonajes {
 
             if (res.next()) {
                 try {
-                    
+
                     uRes.setUsuarioId((Integer) res.getObject("USUARIO_ID"));
                     uRes.setDm(res.getBoolean("DM"));
-                    
-                    
+
                 }
                 catch (NullPointerException e) {
                     uRes = null;
@@ -2361,14 +2415,13 @@ public class CadPersonajes {
             ps.close();
             con.close();
         }
-        catch(SQLException ex){
+        catch (SQLException ex) {
             ExcepcionPersonajes e = new ExcepcionPersonajes();
             e.setCodigoErrorBd(ex.getErrorCode());
             e.setMensajeErrorAdmin(ex.getMessage());
             e.setMensajeUsuario("Error de login, contacte con el administrador");
             e.setSentenciaSql(sql);
-            
-            throw e;
+            e.setError(ErrorUsuario.DEFAULT);
         }
         return uRes;
     }
