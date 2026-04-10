@@ -13,6 +13,11 @@ public class Objeto implements Serializable {
     private Integer valor;
 
     public Objeto() {
+        this.objetoId = -1;
+        this.personajeId = null;
+        this.nombreObjeto = "";
+        this.descripcion = "";
+        this.valor = null;
     }
 
     public Objeto(Integer objetoId, Personaje personajeId, String nombreObjeto, String descripcion, Integer valor) {
@@ -25,6 +30,10 @@ public class Objeto implements Serializable {
 
     public Objeto(Integer objetoId) {
         this.objetoId = objetoId;
+        this.personajeId = null;
+        this.nombreObjeto = "";
+        this.descripcion = "";
+        this.valor = null;
     }
 
     public Objeto(Personaje personajeId, String nombreObjeto, String descripcion, Integer valor) {

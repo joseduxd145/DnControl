@@ -859,8 +859,13 @@ public class CadPersonajes {
             conectarBd();
 
             sp = con.prepareStatement(sql);
-
-            sp.setObject(1, o.getPersonajeId().getPersonajeId(), Types.INTEGER);
+            
+            if(o.getPersonajeId() == null){
+                sp.setNull(1, Types.INTEGER);
+            }
+            else{
+                sp.setObject(1, o.getPersonajeId().getPersonajeId(), Types.INTEGER);
+            }
             sp.setString(2, o.getNombreObjeto());
             sp.setString(3, o.getDescripcion());
             sp.setObject(4, o.getValor(), Types.INTEGER);
@@ -908,22 +913,53 @@ public class CadPersonajes {
      */
     public int modificarObjeto(Integer id, Objeto o) throws ExcepcionPersonajes {
         int ra = 0;
-        sql = "UPDATE OBJETO SET PERSONAJE_ID=?, NOMBRE_OBJETO=?, DESCRIPCION=?,"
+        /*
+        sql = "UPDATE OBJETO SET PERSONAJE_ID=?, NOMBRE_OBJETO=?, DESCRIPCION=?, "
                 + "VALOR=? WHERE OBJETO_ID=?";
+        */
+        
+        if(o.getPersonajeId().getPersonajeId() == -1){
+            sql = "UPDATE OBJETO SET PERSONAJE_ID=NULL"
+                + ", NOMBRE_OBJETO=" + "'" + o.getNombreObjeto() + "'"
+                + ", DESCRIPCION=" + "'" + o.getDescripcion() + "'"
+                + ", VALOR=" + o.getValor()
+                + " WHERE OBJETO_ID=" + id;
+        }
+        else{
+        sql = "UPDATE OBJETO SET PERSONAJE_ID=" + o.getPersonajeId().getPersonajeId()
+                + ", NOMBRE_OBJETO=" + "'" + o.getNombreObjeto() + "'"
+                + ", DESCRIPCION=" + "'" + o.getDescripcion() + "'"
+                + ", VALOR=" + o.getValor()
+                + " WHERE OBJETO_ID=" + id;
+        }
+        
         PreparedStatement ps;
+        Statement s;
 
         try {
             conectarBd();
+            /*
             ps = con.prepareStatement(sql);
-
-            ps.setObject(1, o.getPersonajeId().getPersonajeId(), Types.INTEGER);
+            if(o.getPersonajeId().getPersonajeId() == -1) {
+                ps.setNull(1, Types.INTEGER);
+            }
+            else {
+                ps.setObject(1, o.getPersonajeId().getPersonajeId(), Types.INTEGER);
+            }
             ps.setString(2, o.getNombreObjeto());
             ps.setString(3, o.getDescripcion());
             ps.setObject(4, o.getValor(), Types.INTEGER);
             ps.setObject(5, o.getObjetoId(), Types.INTEGER);
-
+  
             ra = ps.executeUpdate();
+            
+            
             ps.close();
+            */
+            
+            s = con.createStatement();
+            ra = s.executeUpdate(sql);
+            
             con.close();
         }
         catch (SQLException ex) {
