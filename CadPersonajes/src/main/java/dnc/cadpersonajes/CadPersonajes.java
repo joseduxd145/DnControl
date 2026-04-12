@@ -287,7 +287,13 @@ public class CadPersonajes {
             s = con.createStatement();
             res = s.executeQuery(sql);
             if (res.next()) {
-                u = generarUsuario(res);
+                u = new Usuario(
+                        (Integer) res.getObject("USUARIO_ID"),
+                        res.getString("EMAIL"),
+                        res.getString("NOMBRE_USUARIO"),
+                        res.getString("PASSWD"),
+                        res.getBoolean("DM"),
+                        true);
             }
 
             res.close();
@@ -328,7 +334,16 @@ public class CadPersonajes {
 
             res = s.executeQuery(sql);
             while (res.next()) {
-                Usuarios.add(generarUsuario(res));
+                Usuario u;
+                u = new Usuario(
+                        (Integer) res.getObject("USUARIO_ID"),
+                        res.getString("EMAIL"),
+                        res.getString("NOMBRE_USUARIO"),
+                        res.getString("PASSWD"),
+                        res.getBoolean("DM"),
+                        true);
+
+                Usuarios.add(u);
             }
 
             res.close();
@@ -578,9 +593,33 @@ public class CadPersonajes {
             if (res.next()) {
                 Usuario u;
 
-                u = generarUsuario(res);
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
 
-                p = generarPersonaje(res, u);
+                p = new Personaje(
+                        (Integer) res.getObject("PERSONAJE_ID"),
+                        u,
+                        res.getString("NOMBRE_PERSONAJE"),
+                        res.getString("APELLIDO"),
+                        res.getString("TRANSFONDO"),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
+                        res.getString("JUGADOR"));
             }
 
             res.close();
@@ -623,10 +662,34 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                u = generarUsuario(res);
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
 
                 Personaje p;
-                p = generarPersonaje(res, u);
+                p = new Personaje(
+                        (Integer) res.getObject("PERSONAJE_ID"),
+                        u,
+                        res.getString("NOMBRE_PERSONAJE"),
+                        res.getString("APELLIDO"),
+                        res.getString("TRANSFONDO"),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
+                        res.getString("JUGADOR"));
 
                 Personajes.add(p);
             }
@@ -705,7 +768,19 @@ public class CadPersonajes {
 
             while (res.next()) {
                 Personaje p;
-                p = generarPersonaje(res, u);
+                p = new Personaje(
+                        (Integer) res.getObject("PERSONAJE_ID"),
+                        u,
+                        res.getString("NOMBRE_PERSONAJE"),
+                        res.getString("APELLIDO"),
+                        res.getString("TRANSFONDO"),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
+                        res.getString("JUGADOR"));
 
                 personajes.add(p);
             }
@@ -751,7 +826,20 @@ public class CadPersonajes {
 
             while (res.next()) {
                 Personaje p;
-                p = generarPersonaje(res, null);
+                p = new Personaje(
+                        (Integer) res.getObject("PERSONAJE_ID"),
+                        null,
+                        res.getString("NOMBRE_PERSONAJE"),
+                        res.getString("APELLIDO"),
+                        res.getString("TRANSFONDO"),
+                        (Integer) res.getObject("FUERZA"),
+                        (Integer) res.getObject("DESTREZA"),
+                        (Integer) res.getObject("CONSTITUCION"),
+                        (Integer) res.getObject("INTELIGENCIA"),
+                        (Integer) res.getObject("SABIDURIA"),
+                        (Integer) res.getObject("CARISMA"),
+                        res.getString("JUGADOR"));
+
                 enemigos.add(p);
             }
 
@@ -982,15 +1070,49 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                u = generarUsuario(res);
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
 
                 Personaje p;
 
-                p = generarPersonaje(res, u);
+                try {
+                    p = new Personaje(
+                            (Integer) res.getObject("PERSONAJE_ID"),
+                            u,
+                            res.getString("NOMBRE_PERSONAJE"),
+                            res.getString("APELLIDO"),
+                            res.getString("TRANSFONDO"),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
+                            res.getString("JUGADOR"));
+                }
+                catch (NullPointerException e) {
+                    p = null;
+                }
 
                 Objeto o;
 
-                o = generarObjeto(res, p);
+                o = new Objeto(
+                        (Integer) res.getObject("OBJETO_ID"),
+                        p,
+                        res.getString("NOMBRE_OBJETO"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("VALOR"));
 
                 objetos.add(o);
             }
@@ -1038,13 +1160,47 @@ public class CadPersonajes {
             if (res.next()) {
                 Usuario u;
 
-                u = generarUsuario(res);
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
 
                 Personaje p;
 
-                p = generarPersonaje(res, u);
+                try {
+                    p = new Personaje(
+                            (Integer) res.getObject("PERSONAJE_ID"),
+                            u,
+                            res.getString("NOMBRE_PERSONAJE"),
+                            res.getString("APELLIDO"),
+                            res.getString("TRANSFONDO"),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
+                            res.getString("JUGADOR"));
+                }
+                catch (NullPointerException e) {
+                    p = null;
+                }
 
-                o = generarObjeto(res, p);
+                o = new Objeto(
+                        (Integer) res.getObject("OBJETO_ID"),
+                        p,
+                        res.getString("NOMBRE_OBJETO"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("VALOR"));
 
             }
 
@@ -1082,15 +1238,49 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                u = generarUsuario(res);
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
 
                 Personaje p;
 
-                p = generarPersonaje(res, u);
+                try {
+                    p = new Personaje(
+                            (Integer) res.getObject("PERSONAJE_ID"),
+                            u,
+                            res.getString("NOMBRE_PERSONAJE"),
+                            res.getString("APELLIDO"),
+                            res.getString("TRANSFONDO"),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
+                            res.getString("JUGADOR"));
+                }
+                catch (NullPointerException e) {
+                    p = null;
+                }
 
                 Objeto o;
 
-                o = generarObjeto(res, p);
+                o = new Objeto(
+                        (Integer) res.getObject("OBJETO_ID"),
+                        p,
+                        res.getString("NOMBRE_OBJETO"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("VALOR"));
 
                 objetos.add(o);
             }
@@ -1295,12 +1485,23 @@ public class CadPersonajes {
 
             while (res.next()) {
                 SelNumDado snd;
-
-                snd = generarSND(res);
+                try {
+                    snd = new SelNumDado(
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
+                }
+                catch (NullPointerException e) {
+                    snd = null;
+                }
 
                 Habilidad h;
 
-                h = generarHabilidad(res, snd);
+                h = new Habilidad(
+                        (Integer) res.getObject("HABILIDAD_ID"),
+                        snd,
+                        res.getString("NOMBRE_HABILIDAD"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("CANTIDAD_DADO"));
 
                 habilidades.add(h);
             }
@@ -1344,10 +1545,21 @@ public class CadPersonajes {
 
             if (res.next()) {
                 SelNumDado snd;
+                try {
+                    snd = new SelNumDado(
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
+                }
+                catch (NullPointerException e) {
+                    snd = null;
+                }
 
-                snd = generarSND(res);
-
-                h = generarHabilidad(res, snd);
+                h = new Habilidad(
+                        (Integer) res.getObject("HABILIDAD_ID"),
+                        snd,
+                        res.getString("NOMBRE_HABILIDAD"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("CANTIDAD_DADO"));
             }
 
             res.close();
@@ -1527,7 +1739,9 @@ public class CadPersonajes {
             res = s.executeQuery(sql);
 
             if (res.next()) {
-                snd = generarSND(res);
+                snd = new SelNumDado(
+                        (Integer) res.getObject("NUM_DADO_ID"),
+                        (Integer) res.getObject("NUM_DADO"));
             }
 
             res.close();
@@ -1566,7 +1780,9 @@ public class CadPersonajes {
 
             while (res.next()) {
                 SelNumDado snd;
-                snd = generarSND(res);
+                snd = new SelNumDado(
+                        (Integer) res.getObject("NUM_DADO_ID"),
+                        (Integer) res.getObject("NUM_DADO"));
                 selNumDado.add(snd);
             }
 
@@ -1773,7 +1989,19 @@ public class CadPersonajes {
             if (res.next()) {
                 Usuario u;
 
-                u = generarUsuario(res);
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
 
                 Personaje p;
 
@@ -1869,11 +2097,22 @@ public class CadPersonajes {
 
             while (res.next()) {
                 SelNumDado snd;
-
-                snd = generarSND(res);
+                try {
+                    snd = new SelNumDado(
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
+                }
+                catch (NullPointerException e) {
+                    snd = null;
+                }
 
                 Habilidad h;
-                h = generarHabilidad(res, snd);
+                h = new Habilidad(
+                        (Integer) res.getObject("HABILIDAD_ID"),
+                        snd,
+                        res.getString("NOMBRE_HABILIDAD"),
+                        res.getString("DESCRIPCION"),
+                        (Integer) res.getObject("CANTIDAD_DADO"));
 
                 habilidades.add(h);
             }
@@ -1918,19 +2157,64 @@ public class CadPersonajes {
             while (res.next()) {
                 Usuario u;
 
-                u = generarUsuario(res);
+                //Evitar la excepcion al intentar leer un personaje que no tiene un usuario asignado
+                try {
+                    u = new Usuario(
+                            (Integer) res.getObject("USUARIO_ID"),
+                            res.getString("EMAIL"),
+                            res.getString("NOMBRE_USUARIO"),
+                            res.getString("PASSWD"),
+                            Boolean.valueOf(res.getString("DM")),
+                            true);
+                }
+                catch (NullPointerException e) {
+                    u = null;
+                }
 
                 Personaje p;
 
-                p = generarPersonaje(res, u);
+                try {
+                    p = new Personaje(
+                            (Integer) res.getObject("PERSONAJE_ID"),
+                            u,
+                            res.getString("NOMBRE_PERSONAJE"),
+                            res.getString("APELLIDO"),
+                            res.getString("TRANSFONDO"),
+                            (Integer) res.getObject("FUERZA"),
+                            (Integer) res.getObject("DESTREZA"),
+                            (Integer) res.getObject("CONSTITUCION"),
+                            (Integer) res.getObject("INTELIGENCIA"),
+                            (Integer) res.getObject("SABIDURIA"),
+                            (Integer) res.getObject("CARISMA"),
+                            res.getString("JUGADOR"));
+                }
+                catch (NullPointerException e) {
+                    p = null;
+                }
 
                 SelNumDado snd;
-
-                snd = generarSND(res);
+                try {
+                    snd = new SelNumDado(
+                            (Integer) res.getObject("NUM_DADO_ID"),
+                            (Integer) res.getObject("NUM_DADO"));
+                }
+                catch (NullPointerException e) {
+                    snd = null;
+                }
 
                 Habilidad h;
 
-                h = generarHabilidad(res, snd);
+                try {
+                    h = new Habilidad(
+                            (Integer) res.getObject("HABILIDAD_ID"),
+                            snd,
+                            res.getString("NOMBRE_HABILIDAD"),
+                            res.getString("DESCRIPCION"),
+                            (Integer) res.getObject("CANTIDAD_DADO"));
+                }
+                catch (NullPointerException e) {
+                    h = null;
+                }
 
                 if (p == null || h == null) {
                     continue;
@@ -2056,17 +2340,6 @@ public class CadPersonajes {
         return validacion;
     }
 
-    /**
-     * Metodo que rellena el id del usuario que tenga el resto de sus atributos
-     * almacenados en bd
-     *
-     * @param u El usuario a rellenar
-     *
-     * @return Devuelve true si ha cambiado el usuario, false si el usuario no
-     *         existe
-     *
-     * @throws ExcepcionPersonajes Lanza excepcion en fallo de conexion con bd
-     */
     public boolean obtenerIdUsuario(Usuario u) throws ExcepcionPersonajes {
         if (!validarUsuario(u)) {
             return false;
@@ -2113,88 +2386,49 @@ public class CadPersonajes {
         return resultado;
     }
 
-    /**
-     * Metodo interno para generar un objeto usuario
-     *
-     * @param res El ResultSet obtenido a traves de una Query que recoja los
-     *            valores de Usuario
-     *
-     * @return El objeto construido o null
-     *
-     * @throws SQLException Lanza excepcion si el ResultSet falla
-     */
-    private Usuario generarUsuario(ResultSet res) throws SQLException {
-        try {
-            return new Usuario(
-                    (Integer) res.getObject("USUARIO_ID"),
-                    res.getString("EMAIL"),
-                    res.getString("NOMBRE_USUARIO"),
-                    res.getString("PASSWD"),
-                    Boolean.valueOf(res.getString("DM")),
-                    true);
-        }
-        catch (NullPointerException e) {
-            return null;
-        }
-    }
+    public Usuario obtenerIdDesdeDatos(Usuario u) throws ExcepcionPersonajes {
+        Usuario uRes = new Usuario(u.getEmail(), u.getNombreUsuario(), u.getPasswd(), u.getHash());
 
-    private Personaje generarPersonaje(ResultSet res, Usuario u) throws SQLException {
-        try {
-            return new Personaje(
-                    (Integer) res.getObject("PERSONAJE_ID"),
-                    u,
-                    res.getString("NOMBRE_PERSONAJE"),
-                    res.getString("APELLIDO"),
-                    res.getString("TRANSFONDO"),
-                    (Integer) res.getObject("FUERZA"),
-                    (Integer) res.getObject("DESTREZA"),
-                    (Integer) res.getObject("CONSTITUCION"),
-                    (Integer) res.getObject("INTELIGENCIA"),
-                    (Integer) res.getObject("SABIDURIA"),
-                    (Integer) res.getObject("CARISMA"),
-                    res.getString("JUGADOR"));
-        }
-        catch (NullPointerException e) {
-            return null;
-        }
-    }
+        sql = "SELECT * FROM USUARIO "
+                + "WHERE EMAIL = ? AND NOMBRE_USUARIO = ? AND PASSWD = ?";
 
-    private Objeto generarObjeto(ResultSet res, Personaje p) throws SQLException {
-        try {
-            return new Objeto(
-                    (Integer) res.getObject("OBJETO_ID"),
-                    p,
-                    res.getString("NOMBRE_OBJETO"),
-                    res.getString("DESCRIPCION"),
-                    (Integer) res.getObject("VALOR"));
-        }
-        catch (NullPointerException e) {
-            return null;
-        }
-    }
+        PreparedStatement ps;
+        ResultSet res;
 
-    private Habilidad generarHabilidad(ResultSet res, SelNumDado snd) throws SQLException {
         try {
-            return new Habilidad(
-                    (Integer) res.getObject("HABILIDAD_ID"),
-                    snd,
-                    res.getString("NOMBRE_HABILIDAD"),
-                    res.getString("DESCRIPCION"),
-                    (Integer) res.getObject("CANTIDAD_DADO"));
-        }
-        catch (NullPointerException e) {
-            return null;
-        }
-    }
+            conectarBd();
+            ps = con.prepareStatement(sql);
 
-    private SelNumDado generarSND(ResultSet res) throws SQLException {
-        try {
-            return new SelNumDado(
-                    (Integer) res.getObject("NUM_DADO_ID"),
-                    (Integer) res.getObject("NUM_DADO"));
+            ps.setString(1, u.getEmail());
+            ps.setString(2, u.getNombreUsuario());
+            ps.setString(3, u.getPasswd());
+
+            res = ps.executeQuery();
+
+            if (res.next()) {
+                try {
+
+                    uRes.setUsuarioId((Integer) res.getObject("USUARIO_ID"));
+                    uRes.setDm(res.getBoolean("DM"));
+
+                }
+                catch (NullPointerException e) {
+                    uRes = null;
+                }
+            }
+
+            res.close();
+            ps.close();
+            con.close();
         }
-        catch (NullPointerException e) {
-            return null;
+        catch (SQLException ex) {
+            ExcepcionPersonajes e = new ExcepcionPersonajes();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorAdmin(ex.getMessage());
+            e.setMensajeUsuario("Error de login, contacte con el administrador");
+            e.setSentenciaSql(sql);
+            e.setError(ErrorUsuario.DEFAULT);
         }
+        return uRes;
     }
 }
