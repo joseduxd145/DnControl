@@ -914,11 +914,11 @@ public class CadPersonajes {
     public int modificarObjeto(Integer id, Objeto o) throws ExcepcionPersonajes {
         int ra = 0;
         /*
-        sql = "UPDATE OBJETO SET PERSONAJE_ID=?, NOMBRE_OBJETO=?, DESCRIPCION=?, "
-                + "VALOR=? WHERE OBJETO_ID=?";
-        */
-        
-        if(o.getPersonajeId().getPersonajeId() == -1){
+         * sql = "UPDATE OBJETO SET PERSONAJE_ID=?, NOMBRE_OBJETO=?,
+         * DESCRIPCION=?, " + "VALOR=? WHERE OBJETO_ID=?";
+         */
+
+        if (o.getPersonajeId() == null) {
             sql = "UPDATE OBJETO SET PERSONAJE_ID=NULL"
                 + ", NOMBRE_OBJETO=" + "'" + o.getNombreObjeto() + "'"
                 + ", DESCRIPCION=" + "'" + o.getDescripcion() + "'"
@@ -1568,6 +1568,9 @@ public class CadPersonajes {
             e.setSentenciaSql(sql);
 
             switch (e.getCodigoErrorBd()) {
+            case 1:     //UNIKE
+                e.setError(ErrorUsuario.SELNUMDADO_UNIKE);
+                break;
             case 1400:  //NOT NULL
                 e.setMensajeUsuario("El numero del dado es obligatorio");
                 break;
@@ -1613,6 +1616,9 @@ public class CadPersonajes {
             e.setSentenciaSql(sql);
 
             switch (ex.getErrorCode()) {
+            case 1:     //UNIKE
+                e.setError(ErrorUsuario.SELNUMDADO_UNIKE);
+                break;
             case 1407:  //Not NULL
                 e.setMensajeUsuario("El numero del dado es obligatorio");
                 break;
