@@ -12,7 +12,7 @@ public class PersonajesCC {
     /**
      * Conexion con el servidor
      */
-    private Socket con;
+    //private Socket con;
     /**
      * Direccion ip del servidor
      */
@@ -64,7 +64,7 @@ public class PersonajesCC {
         Object res = null;
         try {
             //Conectar al servidor
-            con = new Socket(ipServidor, puerto);
+            Socket con = new Socket(ipServidor, puerto);
             con.setSoTimeout(timeOut);
 
             //Generar el output stream y enviar la peticion al servidor
